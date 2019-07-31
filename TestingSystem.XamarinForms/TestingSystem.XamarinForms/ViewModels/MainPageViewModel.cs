@@ -15,7 +15,10 @@ namespace TestingSystem.XamarinForms.ViewModels
         public MainPageViewModel()
         {
             service = new SubjectService();
-            Subjects = service.GetAll();
+            if (Service.Service.HasInternetConnection())
+            {
+                Subjects = service.GetAll();
+            }
         }
     }
 }

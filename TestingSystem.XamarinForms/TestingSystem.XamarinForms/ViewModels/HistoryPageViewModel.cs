@@ -20,11 +20,14 @@ namespace TestingSystem.XamarinForms.ViewModels
             this.email = email;
             resultService = new ResultService();
             studentService = new StudentService();
-            var student = studentService.Get(email);
-            if (student != null)
-                Results = resultService.GetAll().Where(result => result.StudentId == student.Id);
-            else
-                Results = null;
+            if (Service.Service.HasInternetConnection())
+            {
+                var student = studentService.Get(email);
+                if (student != null)
+                    Results = resultService.GetAll().Where(result => result.StudentId == student.Id);
+                else
+                    Results = null;
+            }
         }
     }
 }

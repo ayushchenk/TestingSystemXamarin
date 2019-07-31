@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.ApiServices;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,8 +22,15 @@ namespace TestingSystem.XamarinForms.Views
             InitializeComponent();
             BindingContext = this;
 
+
             btnLogin.Clicked += async (s, e) =>
             {
+                if (!Service.Service.HasInternetConnection())
+                {
+                    await DisplayAlert("Alert", "You have no connection to internet", "OK");
+                    return;
+                }
+
                 this.indicator.IsRunning = true;
                 if (students == null)
                     students = await service.GetAllAsync();
@@ -33,5 +41,6 @@ namespace TestingSystem.XamarinForms.Views
                 this.indicator.IsRunning = false;
             };
         }
+
     }
 }

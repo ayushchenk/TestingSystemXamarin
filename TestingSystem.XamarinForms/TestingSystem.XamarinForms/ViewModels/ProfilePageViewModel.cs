@@ -19,7 +19,10 @@ namespace TestingSystem.XamarinForms.ViewModels
         {
             Email = email;
             service = new StudentService();
-            Student = service.Get(Email);
+            if (Service.Service.HasInternetConnection())
+            {
+                Student = service.Get(Email);
+            }
         }
 
     }

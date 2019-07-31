@@ -18,8 +18,11 @@ namespace TestingSystem.XamarinForms.ViewModels
         {
             this.email = email;
             service = new StudentService();
-            Student = service.Get(email);
-            Students = service.GetAll().Where(student => student.GroupId == this.Student.GroupId);
+            if (Service.Service.HasInternetConnection())
+            {
+                Student = service.Get(email);
+                Students = service.GetAll().Where(student => student.GroupId == this.Student.GroupId);
+            }
         }
 
     }
