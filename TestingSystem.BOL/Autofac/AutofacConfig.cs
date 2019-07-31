@@ -1,12 +1,12 @@
 ﻿using Autofac;
 using GenericRepository.Common;
 using System.Data.Entity;
-using TestingSystem.BOL.Service;
+using TestingSystem.BusinessModel.Service;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.DAL.DbModel;
 using TestingSystem.Repository.Repositories;
 
-namespace TestingSystem.BOL.Autofac
+namespace TestingSystem.BusinessModel.Autofac
 {
     public class AutofacConfig : Module
     {

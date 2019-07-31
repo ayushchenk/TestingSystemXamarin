@@ -9,7 +9,7 @@ namespace TestingSystem.XamarinForms.ApiServices
 {
     public class SubjectService
     {
-        const string Url = "https://localhost:44381/api/subjectapi";
+        const string Url = "https://testingsystemapplication.azurewebsites.net/api/subjectapi";
         private HttpClient GetClient()
         {
             HttpClient client = new HttpClient();

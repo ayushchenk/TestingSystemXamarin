@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="TestingSystem.XamarinForms.Views.LoginPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder="Email"
+                   WidthRequest="250"
+                   x:Name="entryLogin"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+            <ActivityIndicator x:Name="indicator" IsRunning="False" VerticalOptions="Center" HorizontalOptions="Center" Color="Gray"/>
+            <Button Text="Login"
+                    x:Name="btnLogin"
+                    WidthRequest="150"
+                    VerticalOptions="CenterAndExpand" 
+                 HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

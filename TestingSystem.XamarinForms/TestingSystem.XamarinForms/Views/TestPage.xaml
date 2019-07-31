@@ -4,13 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="TestingSystem.XamarinForms.MainPage">
-
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Text" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
-
+             Title="Tests"
+             x:Class="TestingSystem.XamarinForms.Views.TestPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Tests"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

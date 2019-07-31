@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.DAL.DbModel;
 
-namespace TestingSystem.BOL.Service
+namespace TestingSystem.BusinessModel.Service
 {
     public class SpecializationDTOService : IEntityService<SpecializationDTO>
     {

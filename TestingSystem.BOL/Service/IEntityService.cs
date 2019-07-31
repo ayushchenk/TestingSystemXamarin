@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace TestingSystem.BOL.Service
+namespace TestingSystem.BusinessModel.Service
 {
     public interface IEntityService<TDTO> where TDTO : class, new()
     {

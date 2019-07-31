@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Profile"
+             x:Class="TestingSystem.XamarinForms.Views.ProfilePage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Firstname: " HorizontalOptions="End"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Student.FirstName}"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Lastname: " HorizontalOptions="End"/>
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Student.LastName}"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Email: " HorizontalOptions="End"/>
+            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Student.Email}"/>
+            <Label Grid.Row="3" Grid.Column="0" Text="Specialization: " HorizontalOptions="End"/>
+            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Student.SpecializationName}"/>
+            <Label Grid.Row="4" Grid.Column="0" Text="Group: " HorizontalOptions="End"/>
+            <Label Grid.Row="4" Grid.Column="1" Text="{Binding Student.GroupName}"/>
+            <Label Grid.Row="5" Grid.Column="0" Text="Education unit: " HorizontalOptions="End"/>
+            <Label Grid.Row="5" Grid.Column="1" Text="{Binding Student.EducationUnitName}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
