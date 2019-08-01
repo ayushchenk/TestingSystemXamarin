@@ -9,20 +9,20 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     class HistoryPageViewModel
     {
-        private string email;
+        private int id;
         private ResultService resultService;
         private StudentService studentService;
 
         public IEnumerable<StudentTestResultDTO> Results { set; get; }
 
-        public HistoryPageViewModel(string email)
+        public HistoryPageViewModel(int id)
         {
-            this.email = email;
-            resultService = new ResultService();
-            studentService = new StudentService();
-            if (Service.Service.HasInternetConnection())
+            if (Services.Service.HasInternetConnection())
             {
-                var student = studentService.Get(email);
+                this.id = id;
+                resultService = new ResultService();
+                studentService = new StudentService();
+                var student = studentService.Get(id);
                 if (student != null)
                     Results = resultService.GetAll().Where(result => result.StudentId == student.Id);
                 else

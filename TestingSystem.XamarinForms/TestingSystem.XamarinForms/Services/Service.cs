@@ -1,6 +1,6 @@
 ﻿using Xamarin.Essentials;
 
-namespace TestingSystem.XamarinForms.Service
+namespace TestingSystem.XamarinForms.Services
 {
     public static class Service
     {

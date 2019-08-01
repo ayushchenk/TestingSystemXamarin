@@ -11,7 +11,7 @@ namespace TestingSystem.XamarinForms.ApiServices
 {
     public class ResultService
     {
-        private const string Url = "https://testingsystemapplication.azurewebsites.net/api/resultapi";
+        private const string url = "https://testingsystemapplication.azurewebsites.net/api/resultapi";
         private HttpClient client;
 
         public ResultService()
@@ -22,7 +22,7 @@ namespace TestingSystem.XamarinForms.ApiServices
 
         public IEnumerable<StudentTestResultDTO> GetAll()
         {
-            string result = client.GetStringAsync(Url).Result;
+            string result = client.GetStringAsync(url).Result;
             return JsonConvert.DeserializeObject<IEnumerable<StudentTestResultDTO>>(result);
         }
 

@@ -12,10 +12,10 @@ namespace TestingSystem.XamarinForms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
-        public ProfilePage(string email)
+        public ProfilePage(int id)
         {
             InitializeComponent();
-            BindingContext = new ProfilePageViewModel(email);
+            BindingContext = new ProfilePageViewModel(id);
         }
     }
 }

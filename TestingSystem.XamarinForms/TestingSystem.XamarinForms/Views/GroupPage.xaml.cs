@@ -12,10 +12,10 @@ namespace TestingSystem.XamarinForms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GroupPage : ContentPage
     {
-        public GroupPage(string email)
+        public GroupPage(int id)
         {
             InitializeComponent();
-            BindingContext = new GroupPageViewModel(email);
+            BindingContext = new GroupPageViewModel(id);
         }
     }
 }

@@ -12,10 +12,10 @@ namespace TestingSystem.XamarinForms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HistoryPage : ContentPage
     {
-        public HistoryPage(string email)
+        public HistoryPage(int id)
         {
             InitializeComponent();
-            BindingContext = new HistoryPageViewModel(email);
+            BindingContext = new HistoryPageViewModel(id);
         }
     }
 }

@@ -9,19 +9,16 @@ namespace TestingSystem.XamarinForms.ViewModels
     public class ProfilePageViewModel
     {
         private StudentService service;
-
-        public string Email { set; get; }
         public StudentDTO Student { set; get; }
 
         public ProfilePageViewModel() { }
 
-        public ProfilePageViewModel(string email)
+        public ProfilePageViewModel(int id)
         {
-            Email = email;
-            service = new StudentService();
-            if (Service.Service.HasInternetConnection())
+            if (Services.Service.HasInternetConnection())
             {
-                Student = service.Get(Email);
+                service = new StudentService();
+                Student = service.Get(id);
             }
         }
 

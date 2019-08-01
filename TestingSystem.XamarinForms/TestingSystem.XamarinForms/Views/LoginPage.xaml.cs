@@ -14,30 +14,28 @@ namespace TestingSystem.XamarinForms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        private IEnumerable<StudentDTO> students;
-        private StudentService service = new StudentService();
+        private LoginService service;
 
         public LoginPage()
         {
             InitializeComponent();
             BindingContext = this;
-
+            service = new LoginService();
 
             btnLogin.Clicked += async (s, e) =>
             {
-                if (!Service.Service.HasInternetConnection())
+                if (!Services.Service.HasInternetConnection())
                 {
                     await DisplayAlert("Alert", "You have no connection to internet", "OK");
                     return;
                 }
 
                 this.indicator.IsRunning = true;
-                if (students == null)
-                    students = await service.GetAllAsync();
-                if (students.Select(student => student.Email).Contains(this.entryLogin.Text))
-                    await Navigation.PushAsync(new MainPage(this.entryLogin.Text));
+                var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
+                if(result.IsSuccessful)
+                    await Navigation.PushAsync(new MainPage(result.Id));
                 else
-                    await DisplayAlert("Alert", "Wrong credentials", "OK");
+                    await DisplayAlert("Alert", result.Message, "OK");
                 this.indicator.IsRunning = false;
             };
         }

@@ -11,7 +11,7 @@ namespace TestingSystem.XamarinForms.ApiServices
 {
     public class StudentService
     {
-        const string Url = "https://testingsystemapplication.azurewebsites.net/api/studentapi";
+        const string url = "https://testingsystemapplication.azurewebsites.net/api/studentapi";
         private HttpClient client;
 
         public StudentService()
@@ -22,7 +22,7 @@ namespace TestingSystem.XamarinForms.ApiServices
 
         public IEnumerable<StudentDTO> GetAll()
         {
-            string result = client.GetStringAsync(Url).Result;
+            string result = client.GetStringAsync(url).Result;
             return JsonConvert.DeserializeObject<IEnumerable<StudentDTO>>(result);
         }
 
@@ -31,10 +31,9 @@ namespace TestingSystem.XamarinForms.ApiServices
             return Task.Run(() => GetAll());
         }
 
-        public StudentDTO Get(string email)
+        public StudentDTO Get(int id)
         {
-            email = HttpUtility.UrlEncode(email);
-            string result = client.GetStringAsync(Url + "/?email=" + email).Result;
+            string result = client.GetStringAsync(url + "/" + id).Result;
             return JsonConvert.DeserializeObject<StudentDTO>(result);
         }
     }

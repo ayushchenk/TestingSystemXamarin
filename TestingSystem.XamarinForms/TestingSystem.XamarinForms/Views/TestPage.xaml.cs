@@ -12,7 +12,7 @@ namespace TestingSystem.XamarinForms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TestPage : ContentPage
     {
-        public TestPage(string email)
+        public TestPage(int id)
         {
             InitializeComponent();
         }

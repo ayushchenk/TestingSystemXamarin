@@ -9,18 +9,18 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     class GroupPageViewModel
     {
-        private string email;
+        private int id;
         private StudentService service;
         public IEnumerable<StudentDTO> Students { set; get; }
         public StudentDTO Student { set; get; }
 
-        public GroupPageViewModel(string email)
+        public GroupPageViewModel(int id)
         {
-            this.email = email;
-            service = new StudentService();
-            if (Service.Service.HasInternetConnection())
+            if (Services.Service.HasInternetConnection())
             {
-                Student = service.Get(email);
+                this.id = id;
+                service = new StudentService();
+                Student = service.Get(id);
                 Students = service.GetAll().Where(student => student.GroupId == this.Student.GroupId);
             }
         }

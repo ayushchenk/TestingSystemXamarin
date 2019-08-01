@@ -3,15 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:TestingSystem.XamarinForms.ViewModels"
              mc:Ignorable="d"
              x:Name="master"
              NavigationPage.HasNavigationBar="False"
              x:Class="TestingSystem.XamarinForms.MainPage">
-    <MasterDetailPage.BindingContext>
-        <viewModels:MainPageViewModel x:Name="vm"/>
-    </MasterDetailPage.BindingContext>
-
     <MasterDetailPage.Master>
         <ContentPage Title="Master">
             <ContentPage.Content>
