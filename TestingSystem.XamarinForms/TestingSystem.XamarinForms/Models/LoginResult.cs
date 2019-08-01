@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestingSystem.XamarinForms
+namespace TestingSystem.XamarinForms.Models
 {
     public class LoginResult
     {

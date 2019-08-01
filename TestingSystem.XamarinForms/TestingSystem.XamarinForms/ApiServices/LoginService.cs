@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using TestingSystem.BusinessModel.Model;
+using TestingSystem.XamarinForms.Models;
 
 namespace TestingSystem.XamarinForms.ApiServices
 {
@@ -36,7 +37,7 @@ namespace TestingSystem.XamarinForms.ApiServices
             if (result.IsSuccessful)
                 result.Id = int.Parse(await response.Content.ReadAsStringAsync());
             else
-                result.Message = await response.Content.ReadAsStringAsync();
+                result.Message = JsonConvert.DeserializeObject<MessageModel>(await response.Content.ReadAsStringAsync()).Message;
             return result;
         }
 
