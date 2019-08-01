@@ -22,17 +22,14 @@ namespace TestingSystem.XamarinForms
         public MainPage(int id)
         {
             InitializeComponent();
-            Detail = new NavigationPage(new TestPage(this.id))
-            {
-                BarBackgroundColor = Color.Gray,
-                BarTextColor = Color.White
-            };
+            Detail = new NavigationPage(new TestPage(this.id)) { BarBackgroundColor = Color.Gray };
             this.id = id;
-            
-            btnGroup.Clicked += (s, e) => Detail = new NavigationPage(new GroupPage(this.id)) { BarBackgroundColor = Color.Gray};
+
             btnTests.Clicked += (s, e) => Detail = new NavigationPage(new TestPage(this.id)) { BarBackgroundColor = Color.Gray };
+            btnGroup.Clicked += (s, e) => Detail = new NavigationPage(new GroupPage(this.id)) { BarBackgroundColor = Color.Gray };
             btnHistory.Clicked += (s, e) => Detail = new NavigationPage(new HistoryPage(this.id)) { BarBackgroundColor = Color.Gray };
             btnProfile.Clicked += (s, e) => Detail = new NavigationPage(new ProfilePage(this.id)) { BarBackgroundColor = Color.Gray };
+            btnMaterials.Clicked += (s, e) => Detail = new NavigationPage(new MaterialPage(this.id)) { BarBackgroundColor = Color.Gray };
         }
     }
 }

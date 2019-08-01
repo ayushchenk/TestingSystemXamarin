@@ -11,8 +11,6 @@ namespace TestingSystem.XamarinForms.ViewModels
         private StudentService service;
         public StudentDTO Student { set; get; }
 
-        public ProfilePageViewModel() { }
-
         public ProfilePageViewModel(int id)
         {
             if (Services.Service.HasInternetConnection())
@@ -21,6 +19,5 @@ namespace TestingSystem.XamarinForms.ViewModels
                 Student = service.Get(id);
             }
         }
-
     }
 }

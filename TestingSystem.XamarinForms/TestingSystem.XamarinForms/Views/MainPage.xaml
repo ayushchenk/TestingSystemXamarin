@@ -14,6 +14,7 @@
                     <Button Text="Tests" x:Name="btnTests"/>
                     <Button Text="History" x:Name="btnHistory"/>
                     <Button Text="Group" x:Name="btnGroup"/>
+                    <Button Text="Studying materials" x:Name="btnMaterials"/>
                     <Button Text="Profile" x:Name="btnProfile"/>
                 </StackLayout>
             </ContentPage.Content>
