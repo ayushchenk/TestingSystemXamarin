@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cnvrt="clr-namespace:TestingSystem.XamarinForms.Infrastructure"
+             mc:Ignorable="d"
+             x:Class="TestingSystem.XamarinForms.Controls.ManyAnswersManyCorrectViewCell">
+    <!--<Grid>
+        <Grid.Resources>
+            <cnvrt:ImagePathValueConverter x:Key="pathConverter"/>
+            <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
+        <Label Grid.Row="1" Text="{Binding Question.QuestionString, StringFormat='many many {0}'}" HorizontalOptions="Center"/>
+        <ListView Grid.Row="2" ItemsSource="{Binding Answers}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding AnswerString}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>-->
+    <StackLayout>
+        <StackLayout.Resources>
+            <cnvrt:ImagePathValueConverter x:Key="pathConverter"/>
+            <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
+        </StackLayout.Resources>
+        <Image HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
+        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
+        <ListView ItemsSource="{Binding Answers}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding AnswerString}"/>
+                            <Switch Grid.Column="1" Margin="10" IsToggled="{Binding IsPicked}"  /> 
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ViewCell>

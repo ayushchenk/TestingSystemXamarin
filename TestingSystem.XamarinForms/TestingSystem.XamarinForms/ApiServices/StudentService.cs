@@ -36,5 +36,10 @@ namespace TestingSystem.XamarinForms.ApiServices
             string result = client.GetStringAsync(url + "/" + id).Result;
             return JsonConvert.DeserializeObject<StudentDTO>(result);
         }
+
+        public Task<StudentDTO> GetAsync(int id)
+        {
+            return Task.Run(() => Get(id));
+        }
     }
 }

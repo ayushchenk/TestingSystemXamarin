@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestingSystem.XamarinForms.Models;
 using TestingSystem.XamarinForms.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace TestingSystem.XamarinForms.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TestPage : ContentPage
+    public partial class ResultPage : ContentPage
     {
-        public TestPage(int id)
+        public ResultPage(int id, ParticipateViewModel model)
         {
             InitializeComponent();
-            BindingContext = new TestPageViewModel(id);
+            BindingContext = new ResultPageViewModel(id, model);
         }
     }
 }

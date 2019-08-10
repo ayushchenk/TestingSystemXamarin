@@ -31,8 +31,9 @@ namespace TestingSystem.XamarinForms.Views
                 }
 
                 this.indicator.IsRunning = true;
-                var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
-                if(result.IsSuccessful)
+                //var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
+                var result = await service.LoginAsync("a.yushchenk@gmail.com", "Rhjn!234");
+                if (result.IsSuccessful)
                     await Navigation.PushAsync(new MainPage(result.Id));
                 else
                     await DisplayAlert("Alert", result.Message, "OK");

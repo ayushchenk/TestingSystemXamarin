@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
+             Title="Test"
+             x:Class="TestingSystem.XamarinForms.Views.ParticipatePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Finish" Command="{Binding FinishCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Model}" ItemTemplate="{Binding ItemTemplate}" SelectionMode="None" HasUnevenRows="True" HorizontalScrollBarVisibility="Never"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End"/>
+                <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Button Text="Next" Command="{Binding NextCommand}" HorizontalOptions="Start"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

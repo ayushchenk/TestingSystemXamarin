@@ -1,33 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.ApiServices;
+using System.ComponentModel;
+using TestingSystem.XamarinForms.Infrastructure;
+using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace TestingSystem.XamarinForms.ViewModels
 {
-    class HistoryPageViewModel
+    class HistoryPageViewModel:INotifyPropertyChanged
     {
-        private int id;
+        private IEnumerable<StudentTestResultDTO> results;
+        private CacheProvider cacheProvider;
         private ResultService resultService;
         private StudentService studentService;
 
-        public IEnumerable<StudentTestResultDTO> Results { set; get; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public IEnumerable<StudentTestResultDTO> Results
+        {
+            set
+            {
+                results = value;
+                Notify();
+            }
+            get { return results; }
+        }
 
         public HistoryPageViewModel(int id)
         {
             if (Services.Service.HasInternetConnection())
             {
-                this.id = id;
-                resultService = new ResultService();
-                studentService = new StudentService();
-                var student = studentService.Get(id);
-                if (student != null)
-                    Results = resultService.GetAll().Where(result => result.StudentId == student.Id);
-                else
-                    Results = null;
+                Task.Run(async () =>
+                {
+                    resultService = new ResultService();
+                    studentService = new StudentService();
+                    cacheProvider = new CacheProvider();
+
+                    var student = cacheProvider.Get<StudentDTO>("Student") ?? await studentService.GetAsync(id);
+                    if (student != null)
+                    {
+                        Results = cacheProvider.Get<List<StudentTestResultDTO>>("Results")
+                            ?? (await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
+                        cacheProvider.Set("Results", Results.ToList());
+                    }
+                    else
+                        Results = null;
+                });
             }
+        }
+
+        private void Notify([CallerMemberName] string propName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

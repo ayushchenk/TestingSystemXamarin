@@ -14,6 +14,8 @@ namespace TestingSystem.BusinessModel.Model
 
         public int QuestionId { get; set; }
 
+        public bool IsPicked { set; get; }
+
         public PickedCheckbox PickedCheckbox { set; get; }
     }
 

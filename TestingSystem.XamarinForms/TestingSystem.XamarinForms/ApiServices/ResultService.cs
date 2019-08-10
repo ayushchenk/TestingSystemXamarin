@@ -30,5 +30,20 @@ namespace TestingSystem.XamarinForms.ApiServices
         {
             return Task.Run(() => GetAll());
         }
+
+        public async Task Post(StudentTestResultDTO result)
+        {
+            var keyValues = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Result", result.Result.ToString()),
+                new KeyValuePair<string, string>("GroupInTestId", result.GroupInTestId.ToString()),
+                new KeyValuePair<string, string>("StudentId", result.StudentId.ToString()),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Content = new FormUrlEncodedContent(keyValues);
+
+            var response = await client.SendAsync(request);
+        }
     }
 }

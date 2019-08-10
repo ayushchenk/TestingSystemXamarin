@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cnvrt="clr-namespace:TestingSystem.XamarinForms.Infrastructure"
+             mc:Ignorable="d"
+             x:Class="TestingSystem.XamarinForms.Controls.OneAnswerOneCorrectViewCell">
+    <!--<Grid>
+        <Grid.Resources>
+            <cnvrt:ImagePathValueConverter x:Key="pathConverter"/>
+            <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
+        <Label Grid.Row="1" Text="{Binding Question.QuestionString, StringFormat='one one {0}'}" HorizontalOptions="Center"/>
+        <Editor Placeholder="Answer" Margin="5" Grid.Row="2" Text="{Binding AnswerString}"/>
+    </Grid>-->
+    <StackLayout>
+        <StackLayout.Resources>
+            <cnvrt:ImagePathValueConverter x:Key="pathConverter"/>
+            <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
+        </StackLayout.Resources>
+        <Image HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
+        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
+        <Editor Placeholder="Answer" Margin="5" Text="{Binding AnswerString}"/>
+    </StackLayout>
+</ViewCell>

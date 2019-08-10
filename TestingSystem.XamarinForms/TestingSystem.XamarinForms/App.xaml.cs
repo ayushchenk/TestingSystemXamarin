@@ -1,4 +1,10 @@
-﻿using System;
+﻿using MonkeyCache;
+using MonkeyCache.FileStore;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TestingSystem.BusinessModel.Model;
+using TestingSystem.XamarinForms.Infrastructure;
 using TestingSystem.XamarinForms.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,11 +13,16 @@ namespace TestingSystem.XamarinForms
 {
     public partial class App : Application
     {
+        private CacheProvider cacheProvider;
+
         public App()
         {
             InitializeComponent();
 
+            cacheProvider = new CacheProvider();
             MainPage = new NavigationPage(new LoginPage());
+            Barrel.ApplicationId = "TestingSystemXamarin";
+            Barrel.Current.EmptyAll();
         }
 
         protected override void OnStart()
@@ -21,7 +32,9 @@ namespace TestingSystem.XamarinForms
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            var student = cacheProvider.Get<StudentDTO>("Student");
+            var students = cacheProvider.Get<List<StudentDTO>>("Students");
+            var materials = cacheProvider.Get<List<StudyingMaterialDTO>>("StudyingMaterials");
         }
 
         protected override void OnResume()
