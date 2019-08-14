@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace TestingSystem.XamarinForms.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ResultPage : ContentPage
+    public partial class QuickTestPage : ContentPage
     {
-        public ResultPage(ParticipateViewModel model)
+        public QuickTestPage(QuickTestApiModel model)
         {
             InitializeComponent();
-            BindingContext = new ResultPageViewModel(model);
+            BindingContext = new QuickTestPageViewModel(model);
         }
     }
 }

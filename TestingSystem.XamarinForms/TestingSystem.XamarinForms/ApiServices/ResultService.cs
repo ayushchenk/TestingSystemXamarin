@@ -31,7 +31,7 @@ namespace TestingSystem.XamarinForms.ApiServices
             return Task.Run(() => GetAll());
         }
 
-        public async Task Post(StudentTestResultDTO result)
+        public async Task PostAsync(StudentTestResultDTO result)
         {
             var keyValues = new List<KeyValuePair<string, string>>()
             {

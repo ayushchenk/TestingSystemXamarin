@@ -140,4 +140,22 @@
       <Name>TestingSystem.XamarinForms</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flame.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\results.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tests.png" />
+  </ItemGroup>
 </Project>

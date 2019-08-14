@@ -30,6 +30,7 @@ namespace TestingSystem.XamarinForms
             btnHistory.Clicked += (s, e) => Detail = new NavigationPage(new HistoryPage(this.id)) { BarBackgroundColor = Color.Gray };
             btnProfile.Clicked += (s, e) => Detail = new NavigationPage(new ProfilePage(this.id)) { BarBackgroundColor = Color.Gray };
             btnMaterials.Clicked += (s, e) => Detail = new NavigationPage(new MaterialPage(this.id)) { BarBackgroundColor = Color.Gray };
+            btnQuickTest.Clicked += (s, e) => Detail = new NavigationPage(new QuickTestSetupPage()) { BarBackgroundColor = Color.Gray };
         }
     }
 }

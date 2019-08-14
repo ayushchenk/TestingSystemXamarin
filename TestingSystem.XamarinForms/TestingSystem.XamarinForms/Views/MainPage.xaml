@@ -16,6 +16,7 @@
                     <Button Text="Group" x:Name="btnGroup"/>
                     <Button Text="Studying materials" x:Name="btnMaterials"/>
                     <Button Text="Profile" x:Name="btnProfile"/>
+                    <Button Text="Quick Test" x:Name="btnQuickTest"/>
                 </StackLayout>
             </ContentPage.Content>
         </ContentPage>

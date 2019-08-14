@@ -32,9 +32,7 @@ namespace TestingSystem.XamarinForms
 
         protected override void OnSleep()
         {
-            var student = cacheProvider.Get<StudentDTO>("Student");
-            var students = cacheProvider.Get<List<StudentDTO>>("Students");
-            var materials = cacheProvider.Get<List<StudyingMaterialDTO>>("StudyingMaterials");
+
         }
 
         protected override void OnResume()

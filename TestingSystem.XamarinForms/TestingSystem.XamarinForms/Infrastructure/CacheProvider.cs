@@ -32,5 +32,11 @@ namespace TestingSystem.XamarinForms.Infrastructure
             //else
             //    return default(T);
         }
+
+        public void Remove(string key)
+        {
+            if (Barrel.Current.Exists(key))
+                Barrel.Current.Empty(key);
+        }
     }
 }

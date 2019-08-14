@@ -4,22 +4,24 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             Title="Results"
              NavigationPage.HasNavigationBar="False"
-             x:Class="TestingSystem.XamarinForms.Views.ResultPage">
+             x:Class="TestingSystem.XamarinForms.Views.QuickTestPage">
+    <!--<ContentPage.Resources>
+        <cnvrt:TimeConverter x:Key="converter"/>
+    </ContentPage.Resources>-->
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Text="{Binding Time}"/>-->
+        <ToolbarItem Text="Finish" Command="{Binding FinishCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Model}" ItemTemplate="{Binding ItemTemplate}" SelectionMode="None" HasUnevenRows="True" HorizontalScrollBarVisibility="Never"/>
+            <Label HorizontalOptions="Center" Text="{Binding TimeString}" FontSize="Large"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End"/>
-                <StackLayout HorizontalOptions="Center">
-                    <Label Text="{Binding Correct, StringFormat='Correct: {0}'}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </StackLayout>
-                </StackLayout>
+                <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <Button Text="Next" Command="{Binding NextCommand}" HorizontalOptions="Start"/>
             </StackLayout>
         </StackLayout>

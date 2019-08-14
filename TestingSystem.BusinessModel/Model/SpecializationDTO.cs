@@ -13,5 +13,10 @@ namespace TestingSystem.BusinessModel.Model
         public string SpecializationName { get; set; }
 
         public int? EducationUnitId { get; set; }
+
+        public override string ToString()
+        {
+            return SpecializationName;
+        }
     }
 }

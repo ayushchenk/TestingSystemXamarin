@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.ApiServices;
 using TestingSystem.XamarinForms.Infrastructure;
 using TestingSystem.XamarinForms.Models;
@@ -17,28 +15,25 @@ using Xamarin.Forms;
 
 namespace TestingSystem.XamarinForms.ViewModels
 {
-    public class ParticipatePageViewModel : INotifyPropertyChanged
+    public class QuickTestPageViewModel : INotifyPropertyChanged
     {
         private int index;
         private TimeSpan time;
-        private CacheProvider cacheProvider;
-        private ResultService resultService;
         private ParticipateViewModel participateModel;
-        private ParticipateService participateService;
+        private QuickTestService testService;
         private ICommand finishCommand;
         private ICommand previousCommand;
         private ICommand nextCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public int Total { set; get; }
-        public DataTemplate ItemTemplate { set; get; }
-        public ObservableCollection<QuestionAnswer> Model { set; get; }
-
         public string TimeString
         {
             get { Notify(); return time.ToString(); }
         }
+        public int Total { set; get; }
+        public DataTemplate ItemTemplate { set; get; }
+        public ObservableCollection<QuestionAnswer> Model { set; get; }
 
         public int Current
         {
@@ -76,7 +71,6 @@ namespace TestingSystem.XamarinForms.ViewModels
                                 participateModel.QuestionAnswers.Insert(index, Model[0]);
                                 Model.Clear();
                                 Model.Add(participateModel.QuestionAnswers[++index]);
-                                cacheProvider.Set("Participate", participateModel);
                             });
                         }
                     });
@@ -101,7 +95,6 @@ namespace TestingSystem.XamarinForms.ViewModels
                                 participateModel.QuestionAnswers.Insert(index, Model[0]);
                                 Model.Clear();
                                 Model.Add(participateModel.QuestionAnswers[--index]);
-                                cacheProvider.Set("Participate", participateModel);
                             });
                         }
                     });
@@ -109,28 +102,21 @@ namespace TestingSystem.XamarinForms.ViewModels
             }
         }
 
-        public ParticipatePageViewModel(int studentId, int testId)
+        public QuickTestPageViewModel(QuickTestApiModel model)
         {
             if (Services.Service.HasInternetConnection())
             {
-                ItemTemplate = new QuestionDataTemplateSelector();
                 this.index = 0;
+                ItemTemplate = new QuestionDataTemplateSelector();
+                testService = new QuickTestService();
+                Model = new ObservableCollection<QuestionAnswer>();
 
-                cacheProvider = new CacheProvider();
-                resultService = new ResultService();
-                participateService = new ParticipateService();
-
-                participateModel = cacheProvider.Get<ParticipateViewModel>("Participate") ?? participateService.Get(testId);
-                cacheProvider.Set("Participate", participateModel);
-                time = participateModel.StartTime.AddMinutes(participateModel.Length) - DateTime.Now;
-
-                participateModel.StudentId = studentId;
-                participateModel.GroupInTestId = testId;
+                participateModel = testService.Get(model);
 
                 Total = participateModel.QuestionAnswers.Count;
-                Model = new ObservableCollection<QuestionAnswer>();
                 Model.Add(participateModel.QuestionAnswers[index]);
 
+                time = TimeSpan.FromMinutes(participateModel.Length);
                 Device.StartTimer(TimeSpan.FromSeconds(1), TimerCallback);
             }
         }
@@ -142,33 +128,25 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         private async void Finish(object obj = null)
         {
-            var result = new StudentTestResultDTO()
-            {
-                StudentId = participateModel.StudentId,
-                GroupInTestId = participateModel.GroupInTestId
-            };
             foreach (var qa in participateModel.QuestionAnswers)
             {
                 switch (qa.QuestionType)
                 {
                     case QuestionType.OneAnswerOneCorrect:
                         if (!String.IsNullOrWhiteSpace(qa.AnswerString) && qa.AnswerString.Trim().ToLower() == qa.Answers[0].AnswerString.Trim().ToLower())
-                            result.Result++;
+                            participateModel.Result++;
                         break;
                     case QuestionType.ManyAnswersOneCorrect:
                         if (qa.SelectedItem != null && qa.SelectedItem.IsCorrect)
-                            result.Result++;
+                            participateModel.Result++;
                         break;
                     case QuestionType.ManyAnswersManyCorrect:
                         if (qa.Answers.Where(a => a.IsCorrect).Select(a => a.Id).SequenceEqual(qa.Answers.Where(a => a.IsPicked).Select(a => a.Id)))
-                            result.Result++;
+                            participateModel.Result++;
                         break;
                 }
             }
-            participateModel.Result = result.Result;
 
-            await resultService.PostAsync(result);
-            cacheProvider.Remove("Participate");
             await Application.Current.MainPage.Navigation.PopToRootAsync();
             await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)) { BarBackgroundColor = Color.Gray });
         }

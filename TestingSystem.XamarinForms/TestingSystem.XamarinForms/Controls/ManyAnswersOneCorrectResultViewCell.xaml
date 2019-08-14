@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cnvrt="clr-namespace:TestingSystem.XamarinForms.Infrastructure"
+             mc:Ignorable="d"
+             x:Class="TestingSystem.XamarinForms.Controls.ManyAnswersOneCorrectResultViewCell">
+    <StackLayout>
+        <StackLayout.Resources>
+            <ResourceDictionary>
+                <DataTemplate x:Key="correctAnswer">
+                    <ViewCell>
+                        <Label Text="{Binding AnswerString}" BackgroundColor="#a8fca7"/>
+                    </ViewCell>
+                </DataTemplate>
+                <DataTemplate x:Key="wrongAnswer">
+                    <ViewCell>
+                        <Label Text="{Binding AnswerString}" BackgroundColor="#ff5e5e"/>
+                    </ViewCell>
+                </DataTemplate>
+                <DataTemplate x:Key="answer">
+                    <ViewCell>
+                        <Label Text="{Binding AnswerString}"/>
+                    </ViewCell>
+                </DataTemplate>
+                <cnvrt:ManyManyDataTemplateSelector x:Key="selector"
+                    CorrectAnswer="{StaticResource correctAnswer}"
+                    WrongAnswer="{StaticResource wrongAnswer}" 
+                    Answer="{StaticResource answer}"/>
+            </ResourceDictionary>
+            <cnvrt:ImagePathValueConverter x:Key="pathConverter"/>
+            <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
+        </StackLayout.Resources>
+        <Image HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
+        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
+        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" SelectionMode="None"/>
+    </StackLayout>
+</ViewCell>

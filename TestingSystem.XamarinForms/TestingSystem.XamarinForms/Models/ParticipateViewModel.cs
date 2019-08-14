@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using TestingSystem.BusinessModel.Model;
 
 namespace TestingSystem.XamarinForms.Models
@@ -27,6 +26,16 @@ namespace TestingSystem.XamarinForms.Models
         public string AnswerString { set; get; }
         public int AnswerId { set; get; }
         public QuestionAnswerDTO SelectedItem { set; get; }
+
+        public string CorrectAnswerString
+        {
+            get
+            {
+                if(Answers[0] != null)
+                    return Answers[0].AnswerString;
+                return string.Empty;
+            }
+        }
 
         public QuestionType QuestionType
         {
