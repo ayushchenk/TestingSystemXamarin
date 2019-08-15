@@ -7,6 +7,9 @@
              xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
              Title="Tests"
              x:Class="TestingSystem.XamarinForms.Views.TestPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="refresh.png" Command="{Binding RefreshCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ListView SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding Tests}" SelectionMode="Single">
             <ListView.Behaviors>

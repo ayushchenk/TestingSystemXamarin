@@ -18,7 +18,6 @@ namespace TestingSystem.XamarinForms.Views
         {
             InitializeComponent();
             BindingContext = new ParticipatePageViewModel(studentId, testId);
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Gray;
         }
     }
 }

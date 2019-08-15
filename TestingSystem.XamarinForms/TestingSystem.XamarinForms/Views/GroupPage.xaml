@@ -6,16 +6,39 @@
              mc:Ignorable="d"
              Title="Group"
              x:Class="TestingSystem.XamarinForms.Views.GroupPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="refresh.png" Command="{Binding RefreshCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Students}" SelectionMode="None">
+        <ListView ItemsSource="{Binding Students}" SelectionMode="None" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding FirstName}" HorizontalOptions="Start"/>
-                            <Label Text="{Binding LastName}" HorizontalOptions="Start"/>
-                            <Label Text="{Binding Email}" HorizontalOptions="End"/>
-                        </StackLayout>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image 
+                               Grid.RowSpan="2"
+                               Source="profile.png"
+                               Aspect="AspectFill"
+                               HeightRequest="60"
+                               WidthRequest="60" />
+                            <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                <Label Text="{Binding FirstName}" HorizontalOptions="Start" FontSize="Medium"/>
+                                <Label Text="{Binding LastName}" HorizontalOptions="Start" FontSize="Medium"/>
+                            </StackLayout>
+                            <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding Email}"
+                               VerticalOptions="End" 
+                               FontSize="Medium"/>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

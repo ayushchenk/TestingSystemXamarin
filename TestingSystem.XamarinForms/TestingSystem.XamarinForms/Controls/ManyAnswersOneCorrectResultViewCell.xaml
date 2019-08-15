@@ -11,20 +11,30 @@
             <ResourceDictionary>
                 <DataTemplate x:Key="correctAnswer">
                     <ViewCell>
-                        <Label Text="{Binding AnswerString}" BackgroundColor="#a8fca7"/>
+                        <Grid BackgroundColor="#a8fca7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Text="{Binding AnswerString}"  VerticalOptions="CenterAndExpand"  Margin="10,0,0,0"/>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="wrongAnswer">
                     <ViewCell>
-                        <Label Text="{Binding AnswerString}" BackgroundColor="#ff5e5e"/>
+                        <Grid BackgroundColor="#ff5e5e">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Text="{Binding AnswerString}"  VerticalOptions="CenterAndExpand"  Margin="10,0,0,0"/>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="answer">
                     <ViewCell>
-                        <Label Text="{Binding AnswerString}"/>
+                        <Label Text="{Binding AnswerString}" VerticalOptions="CenterAndExpand" Margin="10,0,0,0"/>
                     </ViewCell>
                 </DataTemplate>
-                <cnvrt:ManyManyDataTemplateSelector x:Key="selector"
+                <cnvrt:AnswerDataTemplateSelector x:Key="selector"
                     CorrectAnswer="{StaticResource correctAnswer}"
                     WrongAnswer="{StaticResource wrongAnswer}" 
                     Answer="{StaticResource answer}"/>

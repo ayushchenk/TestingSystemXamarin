@@ -6,8 +6,11 @@
              mc:Ignorable="d"
              Title="History"
              x:Class="TestingSystem.XamarinForms.Views.HistoryPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="refresh.png" Command="{Binding RefreshCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Results}" SelectionMode="None">
+        <ListView ItemsSource="{Binding Results}" SelectionMode="None" RowHeight="60">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -25,21 +28,21 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="Test: " HorizontalOptions="End"/>
-                                <Label Grid.Column="1" Text="{Binding TestName}" HorizontalOptions="Start"/>
+                                <Label Grid.Column="0" Text="Test: " HorizontalOptions="End" FontSize="Medium" FontAttributes="Bold"/>
+                                <Label Grid.Column="1" Text="{Binding TestName}" HorizontalOptions="Start" FontSize="Medium"/>
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="Subject: " HorizontalOptions="End"/>
-                                <Label Grid.Column="1" Text="{Binding SubjectName}" HorizontalOptions="Start"/>
+                                <Label Grid.Column="0" Text="Subject: " HorizontalOptions="End" FontSize="Medium" FontAttributes="Bold"/>
+                                <Label Grid.Column="1" Text="{Binding SubjectName}" HorizontalOptions="Start" FontSize="Medium"/>
                             </Grid>
                             <StackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
-                                <Label Text="{Binding Result}"/>
-                                <Label Text="/"/>
-                                <Label Text="{Binding QuestionCount}"/>
+                                <Label Text="{Binding Result}" FontSize="Large"/>
+                                <Label Text="/" FontSize="Large"/>
+                                <Label Text="{Binding QuestionCount}" FontSize="Large"/>
                             </StackLayout>
                         </Grid>
                     </ViewCell>

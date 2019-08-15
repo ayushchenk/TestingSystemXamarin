@@ -29,10 +29,14 @@ namespace TestingSystem.XamarinForms.Views
                     await DisplayAlert("Alert", "You have no connection to internet", "OK");
                     return;
                 }
-
                 this.indicator.IsRunning = true;
-                //var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
-                var result = await service.LoginAsync("a.yushchenk@gmail.com", "Rhjn!234");
+                if(String.IsNullOrWhiteSpace(entryEmail.Text) || String.IsNullOrWhiteSpace(entryPassword.Text))
+                {
+                    await DisplayAlert("Alert", "All fields required", "OK");
+                    this.indicator.IsRunning = false;
+                    return;
+                }
+                var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
                 if (result.IsSuccessful)
                 {
                     await Navigation.PushAsync(new MainPage(result.Id));

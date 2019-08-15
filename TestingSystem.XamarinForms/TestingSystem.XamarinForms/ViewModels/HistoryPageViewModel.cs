@@ -6,17 +6,37 @@ using System.ComponentModel;
 using TestingSystem.XamarinForms.Infrastructure;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using TestingSystem.XamarinForms.Models;
+using System.Collections.ObjectModel;
 
 namespace TestingSystem.XamarinForms.ViewModels
 {
-    class HistoryPageViewModel:INotifyPropertyChanged
+    class HistoryPageViewModel : INotifyPropertyChanged
     {
+        private StudentDTO student;
         private IEnumerable<StudentTestResultDTO> results;
         private CacheProvider cacheProvider;
         private ResultService resultService;
         private StudentService studentService;
+        private ICommand refreshCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if (refreshCommand == null)
+                    refreshCommand = new RelayCommand(async (obj) =>
+                    {
+                        Results = ( await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
+                        await Task.Run(() => cacheProvider.Set("Results", Results.ToList()));
+                    });
+                return refreshCommand;
+            }
+        }
+
 
         public IEnumerable<StudentTestResultDTO> Results
         {
@@ -38,7 +58,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     studentService = new StudentService();
                     cacheProvider = new CacheProvider();
 
-                    var student = cacheProvider.Get<StudentDTO>("Student") ?? await studentService.GetAsync(id);
+                    student = cacheProvider.Get<StudentDTO>("Student") ?? await studentService.GetAsync(id);
                     if (student != null)
                     {
                         Results = cacheProvider.Get<List<StudentTestResultDTO>>("Results")

@@ -9,19 +9,24 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
             <Entry Placeholder="Email"
-                   WidthRequest="250"
+                   WidthRequest="270"
                    x:Name="entryEmail"
+                   FontSize="Default"
                    HorizontalOptions="CenterAndExpand" />
             <Entry Placeholder="Password"
                    IsPassword="True"
-                   WidthRequest="250"
+                   WidthRequest="270"
+                   FontSize="Default"
                    x:Name="entryPassword"
                    HorizontalOptions="CenterAndExpand" />
-            <ActivityIndicator x:Name="indicator" IsRunning="False"  HorizontalOptions="Center" Color="Gray" Margin="0,50,0,50"/>
+            <ActivityIndicator x:Name="indicator" IsRunning="False" HorizontalOptions="Center" Color="Gray" Margin="0,50,0,50"/>
             <Button Text="Login"
                     x:Name="btnLogin"
                     WidthRequest="150"
-                    HorizontalOptions="CenterAndExpand" />
+                    FontSize="Medium"
+                    CornerRadius="25"
+                    HorizontalOptions="CenterAndExpand"
+                    BackgroundColor="#8fc5ff"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

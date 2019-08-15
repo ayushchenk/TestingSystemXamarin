@@ -10,17 +10,13 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Model}" ItemTemplate="{Binding ItemTemplate}" SelectionMode="None" HasUnevenRows="True" HorizontalScrollBarVisibility="Never"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End"/>
-                <StackLayout HorizontalOptions="Center">
-                    <Label Text="{Binding Correct, StringFormat='Correct: {0}'}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </StackLayout>
-                </StackLayout>
-                <Button Text="Next" Command="{Binding NextCommand}" HorizontalOptions="Start"/>
+            <Label Text="{Binding Correct, StringFormat='Correct: {0}'}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10">
+                <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End" BackgroundColor="#8fc5ff" WidthRequest="100" CornerRadius="25" Margin="5"/>
+                <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Button Text="Next" Command="{Binding NextCommand}" HorizontalOptions="Start" BackgroundColor="#8fc5ff" WidthRequest="100" CornerRadius="25" Margin="5"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

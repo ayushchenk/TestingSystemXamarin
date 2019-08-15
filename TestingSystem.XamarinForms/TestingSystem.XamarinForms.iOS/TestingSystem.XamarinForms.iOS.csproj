@@ -127,8 +127,14 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.1.5.188</Version>
+    </PackageReference>
     <PackageReference Include="ThriveGmbH.BottomNavigationBar.LATEST">
       <Version>1.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
+      <Version>3.0.0.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
@@ -150,12 +156,21 @@
     <BundleResource Include="Resources\profile.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\results.svg" />
+    <BundleResource Include="Resources\tests.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\result.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\LogoIES.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\test.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\tests.png" />
   </ItemGroup>
 </Project>

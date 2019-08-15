@@ -7,6 +7,9 @@
              xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
              Title="Studying materials"
              x:Class="TestingSystem.XamarinForms.Views.MaterialPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="refresh.png" Command="{Binding RefreshCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ListView SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding StudyingMaterials}" SelectionMode="Single">
             <ListView.Behaviors>

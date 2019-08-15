@@ -11,24 +11,24 @@
             <ResourceDictionary>
                 <DataTemplate x:Key="correctAnswer">
                     <ViewCell>
-                        <Grid>
+                        <Grid BackgroundColor="#a8fca7">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding AnswerString}" BackgroundColor="#a8fca7"/>
+                            <Label Text="{Binding AnswerString}"  VerticalOptions="CenterAndExpand"  Margin="10,0,0,0"/>
                             <Switch Grid.Column="1" Margin="10" IsToggled="{Binding IsPicked}"  />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="wrongAnswer">
                     <ViewCell>
-                        <Grid>
+                        <Grid BackgroundColor="#ff5e5e">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding AnswerString}" BackgroundColor="#ff5e5e"/>
+                            <Label Text="{Binding AnswerString}"  VerticalOptions="CenterAndExpand"  Margin="10,0,0,0"/>
                             <Switch Grid.Column="1" Margin="10" IsToggled="{Binding IsPicked}"  />
                         </Grid>
                     </ViewCell>
@@ -40,12 +40,12 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding AnswerString}"/>
+                            <Label Text="{Binding AnswerString}" VerticalOptions="CenterAndExpand"  Margin="10,0,0,0"/>
                             <Switch Grid.Column="1" Margin="10" IsToggled="{Binding IsPicked}"  />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
-                <cnvrt:ManyManyDataTemplateSelector x:Key="selector"
+                <cnvrt:AnswerDataTemplateSelector x:Key="selector"
                     CorrectAnswer="{StaticResource correctAnswer}"
                     WrongAnswer="{StaticResource wrongAnswer}" 
                     Answer="{StaticResource answer}"/>

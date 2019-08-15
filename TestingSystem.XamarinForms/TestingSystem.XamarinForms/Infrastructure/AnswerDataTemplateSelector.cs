@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace TestingSystem.XamarinForms.Infrastructure
 {
-    class ManyManyDataTemplateSelector : DataTemplateSelector
+    class AnswerDataTemplateSelector : DataTemplateSelector
     {
         public DataTemplate CorrectAnswer { get; set; }
         public DataTemplate WrongAnswer { get; set; }

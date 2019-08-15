@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.ApiServices;
+using TestingSystem.XamarinForms.Models;
 using TestingSystem.XamarinForms.ViewModels;
 using TestingSystem.XamarinForms.Views;
 using Xamarin.Forms;
@@ -23,14 +24,19 @@ namespace TestingSystem.XamarinForms
         {
             InitializeComponent();
             this.id = id;
-            Detail = new NavigationPage(new TestPage(this.id)) { BarBackgroundColor = Color.Gray };
+            listView.ItemSelected += OnItemSelected;
+            Detail = new NavigationPage(new TestPage(this.id)) ;
+        }
 
-            btnTests.Clicked += (s, e) => Detail = new NavigationPage(new TestPage(this.id)) { BarBackgroundColor = Color.Gray };
-            btnGroup.Clicked += (s, e) => Detail = new NavigationPage(new GroupPage(this.id)) { BarBackgroundColor = Color.Gray };
-            btnHistory.Clicked += (s, e) => Detail = new NavigationPage(new HistoryPage(this.id)) { BarBackgroundColor = Color.Gray };
-            btnProfile.Clicked += (s, e) => Detail = new NavigationPage(new ProfilePage(this.id)) { BarBackgroundColor = Color.Gray };
-            btnMaterials.Clicked += (s, e) => Detail = new NavigationPage(new MaterialPage(this.id)) { BarBackgroundColor = Color.Gray };
-            btnQuickTest.Clicked += (s, e) => Detail = new NavigationPage(new QuickTestSetupPage()) { BarBackgroundColor = Color.Gray };
+        void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem as MasterPageItem;
+            if (item != null)
+            {
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType, this.id));
+                listView.SelectedItem = null;
+                IsPresented = false;
+            }
         }
     }
 }

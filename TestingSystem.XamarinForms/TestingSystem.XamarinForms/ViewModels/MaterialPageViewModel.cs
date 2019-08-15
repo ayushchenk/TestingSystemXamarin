@@ -20,23 +20,13 @@ namespace TestingSystem.XamarinForms.ViewModels
         private IEnumerable<StudyingMaterialDTO> studyingMaterials;
 
         private ICommand itemTappedCommand;
+        private ICommand refreshCommand;
         private CacheProvider cacheProvider;
         private StudentService studentService;
         private StudyingMaterialService materialService;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public StudyingMaterialDTO SelectedItem { set; get; }
-
-        public StudentDTO Student
-        {
-            set
-            {
-                student = value;
-                Notify();
-            }
-            get { return student; }
-
-        }
 
         public IEnumerable<StudyingMaterialDTO> StudyingMaterials
         {
@@ -49,6 +39,19 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         }
 
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if (refreshCommand == null)
+                    refreshCommand = new RelayCommand(async (obj) =>
+                   {
+                       StudyingMaterials = (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
+                       await Task.Run(() => cacheProvider.Set("StudyingMaterials", StudyingMaterials.ToList()));
+                   });
+                return refreshCommand;
+            }
+        }
 
         public ICommand ItemTappedCommand
         {
@@ -69,10 +72,10 @@ namespace TestingSystem.XamarinForms.ViewModels
                     cacheProvider = new CacheProvider();
                     studentService = new StudentService();
                     materialService = new StudyingMaterialService();
-                    Student = cacheProvider.Get<StudentDTO>("Student") ?? await studentService.GetAsync(id);
+                    student = cacheProvider.Get<StudentDTO>("Student") ?? await studentService.GetAsync(id);
                     StudyingMaterials = cacheProvider.Get<List<StudyingMaterialDTO>>("StudyingMaterials")
-                        ?? (await materialService.GetAllAsync()).Where(material => material.SpecializationId == Student.SpecializationId);
-                    cacheProvider.Set("Student", Student);
+                        ?? (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
+                    cacheProvider.Set("Student", student);
                     cacheProvider.Set("StudyingMaterials", StudyingMaterials.ToList());
                 });
 

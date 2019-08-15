@@ -23,6 +23,7 @@ namespace TestingSystem.XamarinForms.ViewModels
         private IEnumerable<SubjectDTO> allSubjects;
         private IEnumerable<SpecializationDTO> specializations;
         private ICommand nextCommand;
+        private ICommand refreshCommand;
 
         public string QuestionCount { set; get; }
         public SubjectDTO SelectedSubject { set; get; }
@@ -34,7 +35,7 @@ namespace TestingSystem.XamarinForms.ViewModels
             {
                 selectedSpecialization = value;
                 Subjects.Clear();
-                foreach (var item in allSubjects.Where(s => s.SpecializationId == value.Id)) 
+                foreach (var item in allSubjects.Where(s => s.SpecializationId == value.Id))
                     Subjects.Add(item);
             }
             get { return selectedSpecialization; }
@@ -74,6 +75,16 @@ namespace TestingSystem.XamarinForms.ViewModels
             }
         }
 
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if (refreshCommand == null)
+                    refreshCommand = new RelayCommand((obj) => allSubjects = subjectService.GetAll());
+                return refreshCommand;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public QuickTestSetupPageViewModel()
@@ -85,7 +96,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     subjectService = new SubjectService();
                     specializationService = new SpecializationService();
                     Subjects = new ObservableCollection<SubjectDTO>();
-                    allSubjects = await subjectService.GetAllAsync();
+                    allSubjects = subjectService.GetAll();
                     Specializations = await specializationService.GetAllAsync();
                 });
             }

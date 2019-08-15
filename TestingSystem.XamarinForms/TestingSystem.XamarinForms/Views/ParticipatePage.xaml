@@ -4,27 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:cnvrt="clr-namespace:TestingSystem.XamarinForms.Infrastructure"
-             xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
              Title="Test"
              x:Class="TestingSystem.XamarinForms.Views.ParticipatePage">
-    <ContentPage.Resources>
-        <cnvrt:TimeConverter x:Key="converter"/>
-    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding Time}"/>
         <ToolbarItem Text="Finish" Command="{Binding FinishCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Model}" ItemTemplate="{Binding ItemTemplate}" SelectionMode="None" HasUnevenRows="True" HorizontalScrollBarVisibility="Never"/>
             <Label HorizontalOptions="Center" Text="{Binding TimeString}" FontSize="Large"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10">
+                <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End" BackgroundColor="#8fc5ff" WidthRequest="100" CornerRadius="25" Margin="5"/>
                 <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <Button Text="Next" Command="{Binding NextCommand}" HorizontalOptions="Start"/>
+                <Button Text="Next" Command="{Binding NextCommand}" HorizontalOptions="Start" BackgroundColor="#8fc5ff" WidthRequest="100" CornerRadius="25" Margin="5"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -4,19 +4,42 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:v="clr-namespace:TestingSystem.XamarinForms.Views"
+             xmlns:m="clr-namespace:TestingSystem.XamarinForms.Models"
              x:Name="master"
              NavigationPage.HasNavigationBar="False"
              x:Class="TestingSystem.XamarinForms.MainPage">
     <MasterDetailPage.Master>
         <ContentPage Title="Master">
             <ContentPage.Content>
-                <StackLayout Padding="5">
-                    <Button Text="Tests" x:Name="btnTests"/>
-                    <Button Text="History" x:Name="btnHistory"/>
-                    <Button Text="Group" x:Name="btnGroup"/>
-                    <Button Text="Studying materials" x:Name="btnMaterials"/>
-                    <Button Text="Profile" x:Name="btnProfile"/>
-                    <Button Text="Quick Test" x:Name="btnQuickTest"/>
+                <StackLayout>
+                    <Image Source="LogoIES.png" Aspect="AspectFit" BackgroundColor="#d1d1d1"/>
+                    <ListView x:Name="listView" x:FieldModifier="public" RowHeight="60">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type m:MasterPageItem}">
+                                <m:MasterPageItem Title="Tests" IconSource="test.png" TargetType="{x:Type v:TestPage}" />
+                                <m:MasterPageItem Title="History" IconSource="result.png" TargetType="{x:Type v:HistoryPage}" />
+                                <m:MasterPageItem Title="Group" IconSource="group.png" TargetType="{x:Type v:GroupPage}" />
+                                <m:MasterPageItem Title="Study materials" IconSource="book.png" TargetType="{x:Type v:MaterialPage}" />
+                                <m:MasterPageItem Title="Profile" IconSource="profile.png" TargetType="{x:Type v:ProfilePage}" />
+                                <m:MasterPageItem Title="Trial test" IconSource="flame.jpg" TargetType="{x:Type v:QuickTestSetupPage}" />
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5, 10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding IconSource}" />
+                                        <Label Grid.Column="1" Text="{Binding Title}" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackLayout>
             </ContentPage.Content>
         </ContentPage>

@@ -8,28 +8,37 @@ using TestingSystem.XamarinForms.ApiServices;
 using TestingSystem.XamarinForms.Infrastructure;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using TestingSystem.XamarinForms.Models;
 
 namespace TestingSystem.XamarinForms.ViewModels
 {
-    class GroupPageViewModel:INotifyPropertyChanged
+    class GroupPageViewModel : INotifyPropertyChanged
     {
         private StudentDTO student;
         private StudentService service;
         private CacheProvider cacheProvider;
         private IEnumerable<StudentDTO> students;
+        private ICommand refreshCommand;
+
+        public string GroupName { get { return student.GroupName; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public StudentDTO Student
+        public ICommand RefreshCommand
         {
-            set
+            get
             {
-                student = value;
-                Notify();
+                if (refreshCommand == null)
+                    refreshCommand = new RelayCommand(async (obj) =>
+                    {
+                        Students = (await service.GetAllAsync()).Where(student => student.GroupId == this.student.GroupId);
+                        await Task.Run(() => cacheProvider.Set("Students", Students.ToList()));
+                    });
+                return refreshCommand;
             }
-            get { return student; }
-
         }
+
         public IEnumerable<StudentDTO> Students
         {
             set
@@ -48,10 +57,10 @@ namespace TestingSystem.XamarinForms.ViewModels
                 {
                     service = new StudentService();
                     cacheProvider = new CacheProvider();
-                    Student = cacheProvider.Get<StudentDTO>("Student") ?? await service.GetAsync(id);
+                    student  = cacheProvider.Get<StudentDTO>("Student") ?? await service.GetAsync(id);
                     Students = cacheProvider.Get<List<StudentDTO>>("Students")
-                        ?? (await service.GetAllAsync()).Where(student => student.GroupId == this.Student.GroupId);
-                    cacheProvider.Set("Student", Student);
+                        ?? (await service.GetAllAsync()).Where(student => student.GroupId == this.student.GroupId);
+                    cacheProvider.Set("Student", student);
                     cacheProvider.Set("Students", Students.ToList());
                 });
             }
