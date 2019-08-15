@@ -18,11 +18,13 @@
             Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"
             HorizontalOptions="Center" 
             Aspect="AspectFit"/>
-        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
-            <ListView ItemsSource="{Binding Answers}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" HasUnevenRows="True">
+        <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
+            <ListView ItemsSource="{Binding Answers}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" MinimumHeightRequest="20" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding AnswerString}" TextColor="Gray"/>
+                    <ViewCell>
+                        <Label Text="{Binding AnswerString}" TextColor="Gray" LineBreakMode="WordWrap" Margin="10" VerticalOptions="CenterAndExpand"/>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

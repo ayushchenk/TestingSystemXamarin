@@ -28,6 +28,7 @@ namespace TestingSystem.XamarinForms.ViewModels
         private ICommand finishCommand;
         private ICommand previousCommand;
         private ICommand nextCommand;
+        private ICommand tapCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,6 +44,21 @@ namespace TestingSystem.XamarinForms.ViewModels
         public int Current
         {
             get { Notify(); return index + 1; }
+        }
+
+        public ICommand ImageTapCommand
+        {
+            get
+            {
+                if (tapCommand == null)
+                    tapCommand = new RelayCommand(async (source) =>
+                    {
+                        if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
+                            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
+                        //await Application.Current.MainPage.Navigation.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
+                    });
+                return tapCommand;
+            }
         }
 
         public ICommand FinishCommand

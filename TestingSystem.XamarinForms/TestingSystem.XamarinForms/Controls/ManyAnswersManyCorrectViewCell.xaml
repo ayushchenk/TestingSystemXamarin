@@ -18,8 +18,8 @@
             HorizontalOptions="Center" 
             x:Name="img"
             Aspect="AspectFit" />
-        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
-        <ListView ItemsSource="{Binding Answers}" SelectionMode="None" HasUnevenRows="True">
+        <Label Text="{Binding Question.QuestionString}" FontSize="Medium" Margin="5" LineBreakMode="WordWrap" HorizontalOptions="Center"/>
+        <ListView ItemsSource="{Binding Answers}" SelectionMode="None" HasUnevenRows="True" MinimumHeightRequest="20">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -28,7 +28,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding AnswerString}" VerticalOptions="Center" Margin="10,0,0,0"/>
+                            <Label Grid.Column="0" Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="Center" Margin="10"/>
                             <Switch Grid.Column="1" Margin="10" IsToggled="{Binding IsPicked}"/> 
                         </Grid>
                     </ViewCell>

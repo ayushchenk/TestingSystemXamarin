@@ -16,7 +16,7 @@
                Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"
                HorizontalOptions="Center" 
                Aspect="AspectFit"/>
-        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
+        <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
         <Editor Placeholder="Answer" Margin="5" Text="{Binding AnswerString}"/>
     </StackLayout>
 </ViewCell>

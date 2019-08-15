@@ -12,7 +12,7 @@
             <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
         </StackLayout.Resources>
         <Image HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
-        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
+        <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
         <StackLayout Padding="10">
             <Label Text="{Binding CorrectAnswerString, StringFormat='Correct answer: {0}'}"  />
             <Label Text="{Binding AnswerString, StringFormat='Your answer: {0}'}"/>

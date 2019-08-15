@@ -15,7 +15,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Text="{Binding AnswerString}"  VerticalOptions="CenterAndExpand"  Margin="10,0,0,0"/>
+                            <Label Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="CenterAndExpand"  Margin="10"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
@@ -25,13 +25,13 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Text="{Binding AnswerString}"  VerticalOptions="CenterAndExpand"  Margin="10,0,0,0"/>
+                            <Label Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="CenterAndExpand"  Margin="10"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="answer">
                     <ViewCell>
-                        <Label Text="{Binding AnswerString}" VerticalOptions="CenterAndExpand" Margin="10,0,0,0"/>
+                        <Label Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="CenterAndExpand" Margin="10"/>
                     </ViewCell>
                 </DataTemplate>
                 <cnvrt:AnswerDataTemplateSelector x:Key="selector"
@@ -43,7 +43,7 @@
             <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
         </StackLayout.Resources>
         <Image HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
-        <Label Text="{Binding Question.QuestionString}" HorizontalOptions="Center"/>
-        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" SelectionMode="None"/>
+        <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
+        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" SelectionMode="None" MinimumHeightRequest="20"/>
     </StackLayout>
 </ViewCell>
