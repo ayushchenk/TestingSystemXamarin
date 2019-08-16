@@ -143,6 +143,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         private async void Finish(object obj = null)
         {
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
             foreach (var qa in participateModel.QuestionAnswers)
             {
                 switch (qa.QuestionType)
@@ -164,6 +165,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 
             await Application.Current.MainPage.Navigation.PopToRootAsync();
             await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)) { BarBackgroundColor = Color.Gray });
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
         }
 
         private bool TimerCallback()

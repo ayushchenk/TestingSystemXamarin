@@ -71,8 +71,11 @@ namespace TestingSystem.XamarinForms.ViewModels
                 if (refreshCommand == null)
                     refreshCommand = new RelayCommand(async (obj) =>
                     {
-                        Tests = (await testService.GetAllAsync()).Where(git => git.GroupId == student.GroupId);
-                        await cacheProvider.SetAsync("Tests", Tests.ToList());
+                        if (Services.Service.HasInternetConnection())
+                        {
+                            Tests = (await testService.GetAllAsync()).Where(git => git.GroupId == student.GroupId);
+                            await cacheProvider.SetAsync("Tests", Tests.ToList());
+                        }
                     });
                 return refreshCommand;
             }

@@ -30,8 +30,11 @@ namespace TestingSystem.XamarinForms.ViewModels
                 if (refreshCommand == null)
                     refreshCommand = new RelayCommand(async (obj) =>
                     {
-                        Results = ( await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
-                        await cacheProvider.SetAsync("Results", Results.ToList());
+                        if (Services.Service.HasInternetConnection())
+                        {
+                            Results = (await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
+                            await cacheProvider.SetAsync("Results", Results.ToList());
+                        }
                     });
                 return refreshCommand;
             }

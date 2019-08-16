@@ -32,8 +32,11 @@ namespace TestingSystem.XamarinForms.ViewModels
                 if (refreshCommand == null)
                     refreshCommand = new RelayCommand(async (obj) =>
                     {
-                        Students = (await service.GetAllAsync()).Where(student => student.GroupId == this.student.GroupId);
-                        await Task.Run(() => cacheProvider.Set("Students", Students.ToList()));
+                        if (Services.Service.HasInternetConnection())
+                        {
+                            Students = (await service.GetAllAsync()).Where(student => student.GroupId == this.student.GroupId);
+                            await Task.Run(() => cacheProvider.Set("Students", Students.ToList()));
+                        }
                     });
                 return refreshCommand;
             }
@@ -57,7 +60,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                 {
                     service = new StudentService();
                     cacheProvider = new CacheProvider();
-                    student  = cacheProvider.Get<StudentDTO>("Student") ?? await service.GetAsync(id);
+                    student = cacheProvider.Get<StudentDTO>("Student") ?? await service.GetAsync(id);
                     Students = cacheProvider.Get<List<StudentDTO>>("Students")
                         ?? (await service.GetAllAsync()).Where(student => student.GroupId == this.student.GroupId);
                     cacheProvider.Set("Student", student);

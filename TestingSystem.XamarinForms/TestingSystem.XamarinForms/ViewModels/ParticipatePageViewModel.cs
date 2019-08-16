@@ -151,39 +151,42 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         private async void Finish(object obj = null)
         {
-            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
-            var result = new StudentTestResultDTO()
+            if (Services.Service.HasInternetConnection())
             {
-                StudentId = participateModel.StudentId,
-                GroupInTestId = participateModel.GroupInTestId
-            };
-            foreach (var qa in participateModel.QuestionAnswers)
-            {
-                switch (qa.QuestionType)
+                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
+                var result = new StudentTestResultDTO()
                 {
-                    case QuestionType.OneAnswerOneCorrect:
-                        if (!String.IsNullOrWhiteSpace(qa.AnswerString) && qa.AnswerString.Trim().ToLower() == qa.Answers[0].AnswerString.Trim().ToLower())
-                            result.Result++;
-                        break;
-                    case QuestionType.ManyAnswersOneCorrect:
-                        if (qa.SelectedItem != null && qa.SelectedItem.IsCorrect)
-                            result.Result++;
-                        break;
-                    case QuestionType.ManyAnswersManyCorrect:
-                        if (qa.Answers.Where(a => a.IsCorrect).Select(a => a.Id).SequenceEqual(qa.Answers.Where(a => a.IsPicked).Select(a => a.Id)))
-                            result.Result++;
-                        break;
+                    StudentId = participateModel.StudentId,
+                    GroupInTestId = participateModel.GroupInTestId
+                };
+                foreach (var qa in participateModel.QuestionAnswers)
+                {
+                    switch (qa.QuestionType)
+                    {
+                        case QuestionType.OneAnswerOneCorrect:
+                            if (!String.IsNullOrWhiteSpace(qa.AnswerString) && qa.AnswerString.Trim().ToLower() == qa.Answers[0].AnswerString.Trim().ToLower())
+                                result.Result++;
+                            break;
+                        case QuestionType.ManyAnswersOneCorrect:
+                            if (qa.SelectedItem != null && qa.SelectedItem.IsCorrect)
+                                result.Result++;
+                            break;
+                        case QuestionType.ManyAnswersManyCorrect:
+                            if (qa.Answers.Where(a => a.IsCorrect).Select(a => a.Id).SequenceEqual(qa.Answers.Where(a => a.IsPicked).Select(a => a.Id)))
+                                result.Result++;
+                            break;
+                    }
                 }
-            }
-            participateModel.Result = result.Result;
+                participateModel.Result = result.Result;
 
-            await resultService.PostAsync(result);
-            await cacheProvider.RemoveAsync("Participate");
-            await cacheProvider.RemoveAsync("Tests");
-            await cacheProvider.RemoveAsync("History");
-            await Application.Current.MainPage.Navigation.PopToRootAsync();
-            await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)));
-            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+                await resultService.PostAsync(result);
+                await cacheProvider.RemoveAsync("Participate");
+                await cacheProvider.RemoveAsync("Tests");
+                await cacheProvider.RemoveAsync("History");
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
+                await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)));
+                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+            }
         }
 
         private bool TimerCallback()

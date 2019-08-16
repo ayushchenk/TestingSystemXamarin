@@ -33,7 +33,7 @@ namespace TestingSystem.XamarinForms.Views
                 if (String.IsNullOrWhiteSpace(entryEmail.Text) || String.IsNullOrWhiteSpace(entryPassword.Text))
                 {
                     await DisplayAlert("Alert", "All fields required", "OK");
-                    await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+                    await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAllAsync();
                     return;
                 }
                 var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
@@ -44,7 +44,7 @@ namespace TestingSystem.XamarinForms.Views
                 }
                 else
                     await DisplayAlert("Alert", result.Message, "OK");
-                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAllAsync();
             };
         }
 

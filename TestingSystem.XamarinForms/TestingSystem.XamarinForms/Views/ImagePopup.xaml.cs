@@ -16,6 +16,7 @@ namespace TestingSystem.XamarinForms.Views
         {
             InitializeComponent();
             this.img.Source = "https://testingsystemapplication.azurewebsites.net" + source;
+            this.img.GestureRecognizers.Add(new TapGestureRecognizer((x) => Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync()));
         }
     }
 }

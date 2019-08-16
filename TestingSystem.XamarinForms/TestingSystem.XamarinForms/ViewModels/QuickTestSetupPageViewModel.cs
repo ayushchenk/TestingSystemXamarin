@@ -23,7 +23,6 @@ namespace TestingSystem.XamarinForms.ViewModels
         private IEnumerable<SubjectDTO> allSubjects;
         private IEnumerable<SpecializationDTO> specializations;
         private ICommand nextCommand;
-        private ICommand refreshCommand;
         private ICommand itemChangedCommand;
 
         public string QuestionCount { set; get; }
@@ -85,16 +84,6 @@ namespace TestingSystem.XamarinForms.ViewModels
                         await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
                     });
                 return nextCommand;
-            }
-        }
-
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                if (refreshCommand == null)
-                    refreshCommand = new RelayCommand(async (obj) => allSubjects = await subjectService.GetAllAsync());
-                return refreshCommand;
             }
         }
 

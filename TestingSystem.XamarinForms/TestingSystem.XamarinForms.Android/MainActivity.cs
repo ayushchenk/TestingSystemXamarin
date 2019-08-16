@@ -36,10 +36,11 @@ namespace TestingSystem.XamarinForms.Droid
 
         public override void OnBackPressed()
         {
-            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
-            {
-                Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
-            }
+            //if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            //{
+            //    if (Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopupStack.Count != 0)
+            //        Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+            //}
         }
     }
 }
