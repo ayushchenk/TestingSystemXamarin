@@ -47,7 +47,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     refreshCommand = new RelayCommand(async (obj) =>
                    {
                        StudyingMaterials = (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
-                       await Task.Run(() => cacheProvider.Set("StudyingMaterials", StudyingMaterials.ToList()));
+                       await cacheProvider.SetAsync("StudyingMaterials", StudyingMaterials.ToList());
                    });
                 return refreshCommand;
             }
@@ -72,11 +72,11 @@ namespace TestingSystem.XamarinForms.ViewModels
                     cacheProvider = new CacheProvider();
                     studentService = new StudentService();
                     materialService = new StudyingMaterialService();
-                    student = cacheProvider.Get<StudentDTO>("Student") ?? await studentService.GetAsync(id);
-                    StudyingMaterials = cacheProvider.Get<List<StudyingMaterialDTO>>("StudyingMaterials")
+                    student = await cacheProvider.GetAsync<StudentDTO>("Student") ?? await studentService.GetAsync(id);
+                    StudyingMaterials = await cacheProvider.GetAsync<List<StudyingMaterialDTO>>("StudyingMaterials")
                         ?? (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
-                    cacheProvider.Set("Student", student);
-                    cacheProvider.Set("StudyingMaterials", StudyingMaterials.ToList());
+                    await cacheProvider.SetAsync("Student", student);
+                    await cacheProvider.SetAsync("StudyingMaterials", StudyingMaterials.ToList());
                 });
 
             }

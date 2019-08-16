@@ -36,8 +36,8 @@ namespace TestingSystem.XamarinForms.ViewModels
                 {
                     service = new StudentService();
                     cacheProvider = new CacheProvider();
-                    Student = cacheProvider.Get<StudentDTO>("Student") ?? await service.GetAsync(id);
-                    cacheProvider.Set("Student", Student);
+                    Student = await cacheProvider.GetAsync<StudentDTO>("Student") ?? await service.GetAsync(id);
+                    await cacheProvider.SetAsync("Student", Student);
                 });
             }
         }

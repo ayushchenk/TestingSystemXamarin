@@ -20,9 +20,9 @@
             <Label HorizontalOptions="Center" Text="{Binding TimeString}" FontSize="Large"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10">
                 <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End" BackgroundColor="#8fc5ff" WidthRequest="100" CornerRadius="25" Margin="5"/>
-                <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding Current}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium"/>
+                <Label Text="/" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium"/>
+                <Label Text="{Binding Total}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium"/>
                 <Button Text="Next" Command="{Binding NextCommand}" HorizontalOptions="Start" BackgroundColor="#8fc5ff" WidthRequest="100" CornerRadius="25" Margin="5"/>
             </StackLayout>
         </StackLayout>

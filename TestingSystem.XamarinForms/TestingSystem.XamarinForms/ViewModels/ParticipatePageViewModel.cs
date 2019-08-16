@@ -24,7 +24,6 @@ namespace TestingSystem.XamarinForms.ViewModels
         private CacheProvider cacheProvider;
         private ResultService resultService;
         private ParticipateViewModel participateModel;
-        private ParticipateService participateService;
         private ICommand finishCommand;
         private ICommand previousCommand;
         private ICommand nextCommand;
@@ -38,7 +37,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         public string TimeString
         {
-            get { Notify(); return time.ToString(); }
+            get { Notify(); return String.Format("{0:g}", time); }
         }
 
         public int Current
@@ -55,7 +54,6 @@ namespace TestingSystem.XamarinForms.ViewModels
                     {
                         if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
                             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
-                        //await Application.Current.MainPage.Navigation.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
                     });
                 return tapCommand;
             }
@@ -80,11 +78,11 @@ namespace TestingSystem.XamarinForms.ViewModels
             get
             {
                 if (nextCommand == null)
-                    nextCommand = new RelayCommand(async (obj) =>
+                    nextCommand = new RelayCommand((obj) =>
                     {
                         if (index < participateModel.QuestionAnswers.Count - 1)
                         {
-                            await Task.Run(() =>
+                            Task.Run(() =>
                             {
                                 if (Model[0].QuestionType == QuestionType.ManyAnswersOneCorrect && Model[0].SelectedItem != null)
                                     Model[0].Answers.Find(a => Model[0].SelectedItem.Id == a.Id).IsPicked = true;
@@ -105,27 +103,27 @@ namespace TestingSystem.XamarinForms.ViewModels
             get
             {
                 if (previousCommand == null)
-                    previousCommand = new RelayCommand(async (obj) =>
-                    {
-                        if (index > 0)
-                        {
-                            await Task.Run(() =>
-                            {
-                                if (Model[0].QuestionType == QuestionType.ManyAnswersOneCorrect && Model[0].SelectedItem != null)
-                                    Model[0].Answers.Find(a => Model[0].SelectedItem.Id == a.Id).IsPicked = true;
-                                participateModel.QuestionAnswers.RemoveAt(index);
-                                participateModel.QuestionAnswers.Insert(index, Model[0]);
-                                Model.Clear();
-                                Model.Add(participateModel.QuestionAnswers[--index]);
-                                cacheProvider.Set("Participate", participateModel);
-                            });
-                        }
-                    });
+                    previousCommand = new RelayCommand((obj) =>
+                   {
+                       if (index > 0)
+                       {
+                           Task.Run(() =>
+                           {
+                               if (Model[0].QuestionType == QuestionType.ManyAnswersOneCorrect && Model[0].SelectedItem != null)
+                                   Model[0].Answers.Find(a => Model[0].SelectedItem.Id == a.Id).IsPicked = true;
+                               participateModel.QuestionAnswers.RemoveAt(index);
+                               participateModel.QuestionAnswers.Insert(index, Model[0]);
+                               Model.Clear();
+                               Model.Add(participateModel.QuestionAnswers[--index]);
+                               cacheProvider.Set("Participate", participateModel);
+                           });
+                       }
+                   });
                 return previousCommand;
             }
         }
 
-        public ParticipatePageViewModel(int studentId, int testId)
+        public ParticipatePageViewModel(ParticipateViewModel participateModel)
         {
             if (Services.Service.HasInternetConnection())
             {
@@ -134,14 +132,9 @@ namespace TestingSystem.XamarinForms.ViewModels
 
                 cacheProvider = new CacheProvider();
                 resultService = new ResultService();
-                participateService = new ParticipateService();
 
-                participateModel = cacheProvider.Get<ParticipateViewModel>("Participate") ?? participateService.Get(testId);
-                cacheProvider.Set("Participate", participateModel);
+                this.participateModel = participateModel;
                 time = participateModel.StartTime.AddMinutes(participateModel.Length) - DateTime.Now;
-
-                participateModel.StudentId = studentId;
-                participateModel.GroupInTestId = testId;
 
                 Total = participateModel.QuestionAnswers.Count;
                 Model = new ObservableCollection<QuestionAnswer>();
@@ -158,6 +151,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         private async void Finish(object obj = null)
         {
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
             var result = new StudentTestResultDTO()
             {
                 StudentId = participateModel.StudentId,
@@ -184,9 +178,12 @@ namespace TestingSystem.XamarinForms.ViewModels
             participateModel.Result = result.Result;
 
             await resultService.PostAsync(result);
-            cacheProvider.Remove("Participate");
+            await cacheProvider.RemoveAsync("Participate");
+            await cacheProvider.RemoveAsync("Tests");
+            await cacheProvider.RemoveAsync("History");
             await Application.Current.MainPage.Navigation.PopToRootAsync();
-            await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)) { BarBackgroundColor = Color.Gray });
+            await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)));
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
         }
 
         private bool TimerCallback()

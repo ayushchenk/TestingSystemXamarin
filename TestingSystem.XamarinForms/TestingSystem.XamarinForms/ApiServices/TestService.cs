@@ -14,9 +14,11 @@ namespace TestingSystem.XamarinForms.ApiServices
     {
         const string url = "https://testingsystemapplication.azurewebsites.net/api/testapi";
         private HttpClient client;
+        private ResultService resultService;
 
         public TestService()
         {
+            resultService = new ResultService();
             client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
@@ -24,7 +26,8 @@ namespace TestingSystem.XamarinForms.ApiServices
         public IEnumerable<GroupsInTestDTO> GetAll()
         {
             string result = client.GetStringAsync(url).Result;
-            return JsonConvert.DeserializeObject<IEnumerable<GroupsInTestDTO>>(result).Where(git => DateTime.Now <= git.StartTime.Value.AddMinutes(git.Length));
+            var results = resultService.GetAll();
+            return JsonConvert.DeserializeObject<IEnumerable<GroupsInTestDTO>>(result).Where(git => !results.Select(r=> r.GroupInTestId).Contains(git.Id) && DateTime.Now <= git.StartTime.Value.AddMinutes(git.Length));
         }
 
         public Task<IEnumerable<GroupsInTestDTO>> GetAllAsync()

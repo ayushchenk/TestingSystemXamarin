@@ -36,5 +36,10 @@ namespace TestingSystem.XamarinForms.ApiServices
             else
                 return null;
         }
+
+        public Task<ParticipateViewModel> GetAsync(QuickTestApiModel model)
+        {
+            return Task.Run(() => Get(model));
+        }
     }
 }

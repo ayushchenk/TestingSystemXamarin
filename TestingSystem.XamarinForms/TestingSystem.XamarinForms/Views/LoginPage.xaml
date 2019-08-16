@@ -19,14 +19,13 @@
                    FontSize="Default"
                    x:Name="entryPassword"
                    HorizontalOptions="CenterAndExpand" />
-            <ActivityIndicator x:Name="indicator" IsRunning="False" HorizontalOptions="Center" Color="Gray" Margin="0,50,0,50"/>
             <Button Text="Login"
                     x:Name="btnLogin"
                     WidthRequest="150"
                     FontSize="Medium"
                     CornerRadius="25"
                     HorizontalOptions="CenterAndExpand"
-                    BackgroundColor="#8fc5ff"/>
+                    BackgroundColor="#8fc5ff" Margin="0,170,0,0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

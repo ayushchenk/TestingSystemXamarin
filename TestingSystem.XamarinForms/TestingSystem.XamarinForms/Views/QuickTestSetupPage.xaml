@@ -12,7 +12,11 @@
     <ContentPage.Content>
         <StackLayout Padding="10">
             <Label Text="Specialization" FontSize="Medium" Margin="5,0,5,0"/>
-            <Picker ItemsSource="{Binding Specializations}" SelectedItem="{Binding SelectedSpecialization}" Margin="5,0,5,0"/>
+            <Picker ItemsSource="{Binding Specializations}" SelectedItem="{Binding SelectedSpecialization}" Margin="5,0,5,0">
+                <Picker.Behaviors>
+                    <b:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding ItemChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
             <Label Text="Subject" FontSize="Medium" Margin="5,0,5,0"/>
             <Picker ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject}" Margin="5,0,5,0"/>
             <Label Text="Question count" FontSize="Medium" Margin="5,0,5,0"/>

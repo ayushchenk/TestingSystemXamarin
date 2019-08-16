@@ -44,6 +44,6 @@
         </StackLayout.Resources>
         <Image HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" Aspect="AspectFit" HorizontalOptions="Center" Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"/>
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
-        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" SelectionMode="None" MinimumHeightRequest="20"/>
+        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" SelectionMode="None" MinimumHeightRequest="20" HasUnevenRows="True"/>
     </StackLayout>
 </ViewCell>

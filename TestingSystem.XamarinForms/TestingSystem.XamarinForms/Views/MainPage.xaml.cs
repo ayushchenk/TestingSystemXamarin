@@ -32,10 +32,10 @@ namespace TestingSystem.XamarinForms
         {
             var item = e.SelectedItem as MasterPageItem;
             if (item != null)
-            {
+            { 
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType, this.id));
                 listView.SelectedItem = null;
-                IsPresented = false;
+                IsPresented = true;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using Xamarin.Essentials;
+﻿using Plugin.Connectivity;
 
 namespace TestingSystem.XamarinForms.Services
 {
@@ -6,9 +6,7 @@ namespace TestingSystem.XamarinForms.Services
     {
         public static bool HasInternetConnection()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-                return true;
-            return false;
+            return CrossConnectivity.Current.IsConnected;
         }
     }
 }

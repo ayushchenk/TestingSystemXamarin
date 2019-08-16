@@ -11,7 +11,7 @@
         <ToolbarItem IconImageSource="refresh.png" Command="{Binding RefreshCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding Tests}" SelectionMode="Single">
+        <ListView SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding Tests}" SelectionMode="Single" RowHeight="55">
             <ListView.Behaviors>
                 <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}"/>
             </ListView.Behaviors>
@@ -27,7 +27,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TestName}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TestName}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium"/>
                             <Label Grid.Row="1" Grid.Column="0" Text="{Binding StartTime}" HorizontalOptions="Center"/>
                             <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=Length, StringFormat='Length: {0}'}" HorizontalOptions="Center"/>
                         </Grid>

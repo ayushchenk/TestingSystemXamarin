@@ -24,5 +24,10 @@ namespace TestingSystem.XamarinForms.ApiServices
             string result = client.GetStringAsync(url + "/" + id).Result;
             return JsonConvert.DeserializeObject<ParticipateViewModel>(result);
         }
+
+        public Task<ParticipateViewModel> GetAsync(int id)
+        {
+            return Task.Run(() => Get(id));
+        }
     }
 }

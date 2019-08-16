@@ -23,9 +23,9 @@ namespace TestingSystem.BusinessModel.Model
 
         public int Questions { set; get; }
 
-        public override string ToString()
-        {
-            return SubjectName;
-        }
+        //public override string ToString()
+        //{
+        //    return SubjectName;
+        //}
     }
 }

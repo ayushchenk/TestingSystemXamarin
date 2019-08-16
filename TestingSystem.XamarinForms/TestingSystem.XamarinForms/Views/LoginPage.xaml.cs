@@ -29,11 +29,11 @@ namespace TestingSystem.XamarinForms.Views
                     await DisplayAlert("Alert", "You have no connection to internet", "OK");
                     return;
                 }
-                this.indicator.IsRunning = true;
-                if(String.IsNullOrWhiteSpace(entryEmail.Text) || String.IsNullOrWhiteSpace(entryPassword.Text))
+                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
+                if (String.IsNullOrWhiteSpace(entryEmail.Text) || String.IsNullOrWhiteSpace(entryPassword.Text))
                 {
                     await DisplayAlert("Alert", "All fields required", "OK");
-                    this.indicator.IsRunning = false;
+                    await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
                     return;
                 }
                 var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
@@ -44,7 +44,7 @@ namespace TestingSystem.XamarinForms.Views
                 }
                 else
                     await DisplayAlert("Alert", result.Message, "OK");
-                this.indicator.IsRunning = false;
+                await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
             };
         }
 

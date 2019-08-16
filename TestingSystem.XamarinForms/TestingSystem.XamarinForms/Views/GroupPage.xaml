@@ -20,24 +20,28 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Image 
-                               Grid.RowSpan="2"
-                               Source="profile.png"
-                               Aspect="AspectFill"
-                               HeightRequest="60"
-                               WidthRequest="60" />
-                            <StackLayout Grid.Column="1" Orientation="Horizontal">
+                            <Frame Grid.RowSpan="2" 
+                                   IsClippedToBounds="True" 
+                                   Padding="0" 
+                                   WidthRequest="70"
+                                   HeightRequest="70"
+                                   CornerRadius="35"
+                                   BackgroundColor="#cfcfcf">
+                                <Image Source="profile.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Frame>
+                            <StackLayout Grid.Column="1" Orientation="Horizontal" Margin="15,0,0,0" VerticalOptions="End">
                                 <Label Text="{Binding FirstName}" HorizontalOptions="Start" FontSize="Medium"/>
                                 <Label Text="{Binding LastName}" HorizontalOptions="Start" FontSize="Medium"/>
                             </StackLayout>
                             <Label Grid.Row="1"
                                Grid.Column="1"
                                Text="{Binding Email}"
-                               VerticalOptions="End" 
-                               FontSize="Medium"/>
+                               VerticalOptions="Center" 
+                               FontSize="Medium"
+                               Margin="15,0,0,0"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

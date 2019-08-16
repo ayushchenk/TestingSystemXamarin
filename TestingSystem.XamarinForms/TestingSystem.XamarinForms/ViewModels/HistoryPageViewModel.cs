@@ -31,12 +31,11 @@ namespace TestingSystem.XamarinForms.ViewModels
                     refreshCommand = new RelayCommand(async (obj) =>
                     {
                         Results = ( await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
-                        await Task.Run(() => cacheProvider.Set("Results", Results.ToList()));
+                        await cacheProvider.SetAsync("Results", Results.ToList());
                     });
                 return refreshCommand;
             }
         }
-
 
         public IEnumerable<StudentTestResultDTO> Results
         {
@@ -58,12 +57,12 @@ namespace TestingSystem.XamarinForms.ViewModels
                     studentService = new StudentService();
                     cacheProvider = new CacheProvider();
 
-                    student = cacheProvider.Get<StudentDTO>("Student") ?? await studentService.GetAsync(id);
+                    student = await cacheProvider.GetAsync<StudentDTO>("Student") ?? await studentService.GetAsync(id);
                     if (student != null)
                     {
-                        Results = cacheProvider.Get<List<StudentTestResultDTO>>("Results")
+                        Results = await cacheProvider.GetAsync<List<StudentTestResultDTO>>("Results")
                             ?? (await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
-                        cacheProvider.Set("Results", Results.ToList());
+                        await cacheProvider.SetAsync("Results", Results.ToList());
                     }
                     else
                         Results = null;

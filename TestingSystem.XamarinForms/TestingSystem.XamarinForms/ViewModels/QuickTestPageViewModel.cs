@@ -30,7 +30,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         public string TimeString
         {
-            get { Notify(); return time.ToString(); }
+             get { Notify(); return String.Format("{0:g}", time); }
         }
         public int Total { set; get; }
         public DataTemplate ItemTemplate { set; get; }
@@ -112,13 +112,12 @@ namespace TestingSystem.XamarinForms.ViewModels
                     {
                         if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
                             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
-                            //await Application.Current.MainPage.Navigation.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
                     });
                 return tapCommand;
             }
         }
 
-        public QuickTestPageViewModel(QuickTestApiModel model)
+        public QuickTestPageViewModel(ParticipateViewModel participateModel)
         {
             if (Services.Service.HasInternetConnection())
             {
@@ -127,7 +126,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                 testService = new QuickTestService();
                 Model = new ObservableCollection<QuestionAnswer>();
 
-                participateModel = testService.Get(model);
+                this.participateModel = participateModel;
 
                 Total = participateModel.QuestionAnswers.Count;
                 Model.Add(participateModel.QuestionAnswers[index]);

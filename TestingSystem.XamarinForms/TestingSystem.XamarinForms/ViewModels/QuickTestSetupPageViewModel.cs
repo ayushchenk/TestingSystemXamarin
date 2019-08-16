@@ -17,29 +17,20 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     public class QuickTestSetupPageViewModel : INotifyPropertyChanged
     {
+        private QuickTestService testService;
         private SubjectService subjectService;
         private SpecializationService specializationService;
-        private SpecializationDTO selectedSpecialization;
         private IEnumerable<SubjectDTO> allSubjects;
         private IEnumerable<SpecializationDTO> specializations;
         private ICommand nextCommand;
         private ICommand refreshCommand;
+        private ICommand itemChangedCommand;
 
         public string QuestionCount { set; get; }
         public SubjectDTO SelectedSubject { set; get; }
-        public ObservableCollection<SubjectDTO> Subjects { set; get; }
+        public SpecializationDTO SelectedSpecialization { set; get; }
 
-        public SpecializationDTO SelectedSpecialization
-        {
-            set
-            {
-                selectedSpecialization = value;
-                Subjects.Clear();
-                foreach (var item in allSubjects.Where(s => s.SpecializationId == value.Id))
-                    Subjects.Add(item);
-            }
-            get { return selectedSpecialization; }
-        }
+        public ObservableCollection<SubjectDTO> Subjects { set; get; }
 
         public IEnumerable<SpecializationDTO> Specializations
         {
@@ -49,6 +40,23 @@ namespace TestingSystem.XamarinForms.ViewModels
                 Notify();
             }
             get { return specializations; }
+        }
+
+        public ICommand ItemChangedCommand
+        {
+            get
+            {
+                if (itemChangedCommand == null)
+                    itemChangedCommand = new RelayCommand(obj =>
+                    {
+                        Subjects.Clear();
+                        if (SelectedSpecialization == null)
+                            return;
+                        foreach (var item in allSubjects.Where(s => s.SpecializationId == SelectedSpecialization.Id))
+                            Subjects.Add(item);
+                    });
+                return itemChangedCommand;
+            }
         }
 
         public ICommand NextCommand
@@ -68,8 +76,13 @@ namespace TestingSystem.XamarinForms.ViewModels
                             SubjectId = SelectedSubject.Id,
                             QuestionCount = int.Parse(this.QuestionCount)
                         };
+
+                        await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
+                        var participateModel = await testService.GetAsync(model);
+
                         await Application.Current.MainPage.Navigation.PopToRootAsync();
-                        await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new QuickTestPage(model)));
+                        await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new QuickTestPage(participateModel)));
+                        await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
                     });
                 return nextCommand;
             }
@@ -80,7 +93,7 @@ namespace TestingSystem.XamarinForms.ViewModels
             get
             {
                 if (refreshCommand == null)
-                    refreshCommand = new RelayCommand((obj) => allSubjects = subjectService.GetAll());
+                    refreshCommand = new RelayCommand(async (obj) => allSubjects = await subjectService.GetAllAsync());
                 return refreshCommand;
             }
         }
@@ -91,13 +104,14 @@ namespace TestingSystem.XamarinForms.ViewModels
         {
             if (Services.Service.HasInternetConnection())
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    subjectService = new SubjectService();
-                    specializationService = new SpecializationService();
                     Subjects = new ObservableCollection<SubjectDTO>();
+                    subjectService = new SubjectService();
+                    testService = new QuickTestService();
+                    specializationService = new SpecializationService();
                     allSubjects = subjectService.GetAll();
-                    Specializations = await specializationService.GetAllAsync();
+                    Specializations = specializationService.GetAll();
                 });
             }
         }
