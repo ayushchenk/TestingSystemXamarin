@@ -11,7 +11,7 @@ namespace TestingSystem.XamarinForms.Infrastructure
     {
         public void Set<T>(string key, T value)
         {
-            Barrel.Current.Add<T>(key, value, TimeSpan.FromMinutes(30));
+            Barrel.Current.Add<T>(key, value, TimeSpan.FromMinutes(5));
         }
 
         public T Get<T>(string key)

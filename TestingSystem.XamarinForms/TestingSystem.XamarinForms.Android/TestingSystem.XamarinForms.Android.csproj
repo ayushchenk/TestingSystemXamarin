@@ -138,10 +138,10 @@
     <AndroidResource Include="Resources\drawable\LogoIES.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\refresh.png" />
+    <AndroidResource Include="Resources\drawable\test.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\test.png" />
+    <AndroidResource Include="Resources\drawable\refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

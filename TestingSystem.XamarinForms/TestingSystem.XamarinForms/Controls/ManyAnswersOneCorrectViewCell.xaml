@@ -19,11 +19,13 @@
             HorizontalOptions="Center" 
             Aspect="AspectFit"/>
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
-            <ListView ItemsSource="{Binding Answers}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" MinimumHeightRequest="20" HasUnevenRows="True">
+        <ListView ItemsSource="{Binding Answers}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" MinimumHeightRequest="20" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Text="{Binding AnswerString}" TextColor="Gray" LineBreakMode="WordWrap" Margin="10" VerticalOptions="CenterAndExpand"/>
+                        <Frame Padding="2" Margin="7" CornerRadius="15">
+                            <Label Text="{Binding AnswerString}" TextColor="Gray" LineBreakMode="WordWrap" Margin="10" VerticalOptions="CenterAndExpand"/>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

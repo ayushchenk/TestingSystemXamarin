@@ -19,18 +19,22 @@
             x:Name="img"
             Aspect="AspectFit" />
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" Margin="5" LineBreakMode="WordWrap" HorizontalOptions="Center"/>
-        <ListView ItemsSource="{Binding Answers}" SelectionMode="None" HasUnevenRows="True" MinimumHeightRequest="20">
+        <ListView ItemsSource="{Binding Answers}" SelectionMode="None" HasUnevenRows="True" MinimumHeightRequest="15">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="Center" Margin="10"/>
-                            <Switch Grid.Column="1" Margin="10" IsToggled="{Binding IsPicked}"/> 
-                        </Grid>
+                        <Frame Margin="0" Padding="0" BackgroundColor="#fafafa">
+                            <Frame Padding="2" Margin="7" CornerRadius="15">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="Center" Margin="10"/>
+                                    <Switch Grid.Column="1" Margin="10" IsToggled="{Binding IsPicked}"/>
+                                </Grid>
+                            </Frame>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
