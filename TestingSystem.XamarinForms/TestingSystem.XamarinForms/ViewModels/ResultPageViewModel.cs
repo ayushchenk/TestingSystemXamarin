@@ -20,6 +20,7 @@ namespace TestingSystem.XamarinForms.ViewModels
         private ParticipateViewModel participateModel;
         private ICommand previousCommand;
         private ICommand nextCommand;
+        private ICommand tapCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,9 +29,24 @@ namespace TestingSystem.XamarinForms.ViewModels
         public DataTemplate ItemTemplate { set; get; }
         public QuestionAnswerDTO SelectedAnswer { set; get; }
         public ObservableCollection<QuestionAnswer> Model { set; get; }
+
         public int Current
         {
             get { Notify(); return index + 1; }
+        }
+
+        public ICommand ImageTapCommand
+        {
+            get
+            {
+                if (tapCommand == null)
+                    tapCommand = new RelayCommand(async (source) =>
+                    {
+                        if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
+                            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
+                    });
+                return tapCommand;
+            }
         }
 
         public ICommand NextCommand

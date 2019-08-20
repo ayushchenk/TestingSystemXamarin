@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
              mc:Ignorable="d"
              Title="Results"
              NavigationPage.HasNavigationBar="False"
              x:Class="TestingSystem.XamarinForms.Views.ResultPage">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Model}" ItemTemplate="{Binding ItemTemplate}" SelectionMode="None" HasUnevenRows="True" HorizontalScrollBarVisibility="Never"/>
+            <ListView ItemsSource="{Binding Model}" ItemTemplate="{Binding ItemTemplate}" SelectionMode="None" HasUnevenRows="True" HorizontalScrollBarVisibility="Never">
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ImageTapCommand}"/>
+                </ListView.Behaviors>
+            </ListView>
             <Label Text="{Binding Correct, StringFormat='Correct: {0}'}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10">
                 <Button Text="Previous" Command="{Binding PreviousCommand}" HorizontalOptions="End" BackgroundColor="#8fc5ff" WidthRequest="100" CornerRadius="25" Margin="5"/>

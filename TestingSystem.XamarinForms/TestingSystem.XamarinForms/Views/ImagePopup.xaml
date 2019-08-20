@@ -21,6 +21,15 @@
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
     <ScrollView>
-        <Image x:Name="img" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Grid Padding="0" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="img" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
+            <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{Binding Source={x:Reference img}, Path=IsLoading}" HeightRequest="80" WidthRequest="80"/>
+        </Grid>
     </ScrollView>
 </pages:PopupPage>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TestingSystem.BusinessModel.Model;
 
 namespace TestingSystem.XamarinForms.Models
@@ -22,10 +24,9 @@ namespace TestingSystem.XamarinForms.Models
     {
         public QuestionDTO Question { set; get; }
         public List<QuestionAnswerDTO> Answers { set; get; } = new List<QuestionAnswerDTO>();
-
+        public QuestionAnswerDTO SelectedItem { set; get; }
         public string AnswerString { set; get; }
         public int AnswerId { set; get; }
-        public QuestionAnswerDTO SelectedItem { set; get; }
 
         public string CorrectAnswerString
         {

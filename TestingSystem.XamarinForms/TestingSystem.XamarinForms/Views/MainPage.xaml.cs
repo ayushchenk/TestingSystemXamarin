@@ -35,7 +35,7 @@ namespace TestingSystem.XamarinForms
             { 
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType, this.id));
                 listView.SelectedItem = null;
-                IsPresented = true;
+                IsPresented = false;
             }
         }
     }

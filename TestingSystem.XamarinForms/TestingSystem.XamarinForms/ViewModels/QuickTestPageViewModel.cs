@@ -18,6 +18,7 @@ namespace TestingSystem.XamarinForms.ViewModels
     public class QuickTestPageViewModel : INotifyPropertyChanged
     {
         private int index;
+        private Timer timer;
         private TimeSpan time;
         private ParticipateViewModel participateModel;
         private QuickTestService testService;
@@ -121,9 +122,10 @@ namespace TestingSystem.XamarinForms.ViewModels
         {
             if (Services.Service.HasInternetConnection())
             {
-                this.index = 0;
-                ItemTemplate = new QuestionDataTemplateSelector();
+                index = 0;
+                timer = new Timer(TimeSpan.FromSeconds(1), TimerCallback);
                 testService = new QuickTestService();
+                ItemTemplate = new QuestionDataTemplateSelector();
                 Model = new ObservableCollection<QuestionAnswer>();
 
                 this.participateModel = participateModel;
@@ -132,7 +134,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                 Model.Add(participateModel.QuestionAnswers[index]);
 
                 time = TimeSpan.FromMinutes(participateModel.Length);
-                Device.StartTimer(TimeSpan.FromSeconds(1), TimerCallback);
+                timer.Start();
             }
         }
 
@@ -143,6 +145,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         private async void Finish(object obj = null)
         {
+            timer.Stop();
             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
             foreach (var qa in participateModel.QuestionAnswers)
             {
@@ -162,7 +165,6 @@ namespace TestingSystem.XamarinForms.ViewModels
                         break;
                 }
             }
-
             await Application.Current.MainPage.Navigation.PopToRootAsync();
             await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)) { BarBackgroundColor = Color.Gray });
             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();

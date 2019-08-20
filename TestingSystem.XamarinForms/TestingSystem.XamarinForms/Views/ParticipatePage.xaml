@@ -4,6 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
+             xmlns:c="clr-namespace:TestingSystem.XamarinForms.Controls"
+             xmlns:i="clr-namespace:TestingSystem.XamarinForms.Infrastructure"
              mc:Ignorable="d"
              Title="Test"
              x:Class="TestingSystem.XamarinForms.Views.ParticipatePage">

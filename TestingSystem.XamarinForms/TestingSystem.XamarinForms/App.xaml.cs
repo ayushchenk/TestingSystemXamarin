@@ -3,10 +3,12 @@ using MonkeyCache.FileStore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.Infrastructure;
 using TestingSystem.XamarinForms.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace TestingSystem.XamarinForms
@@ -17,6 +19,8 @@ namespace TestingSystem.XamarinForms
 
         public App()
         {
+            Xamarin.Forms.Internals.Log.Listeners.Add(new DelegateLogListener((arg1, arg2) => Debug.WriteLine(arg2)));
+
             InitializeComponent();
 
             cacheProvider = new CacheProvider();

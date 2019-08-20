@@ -20,6 +20,7 @@ namespace TestingSystem.XamarinForms.ViewModels
     public class ParticipatePageViewModel : INotifyPropertyChanged
     {
         private int index;
+        private Timer timer;
         private TimeSpan time;
         private CacheProvider cacheProvider;
         private ResultService resultService;
@@ -128,7 +129,8 @@ namespace TestingSystem.XamarinForms.ViewModels
             if (Services.Service.HasInternetConnection())
             {
                 ItemTemplate = new QuestionDataTemplateSelector();
-                this.index = 0;
+                index = 0;
+                timer = new Timer(TimeSpan.FromSeconds(1), TimerCallback);
 
                 cacheProvider = new CacheProvider();
                 resultService = new ResultService();
@@ -139,8 +141,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                 Total = participateModel.QuestionAnswers.Count;
                 Model = new ObservableCollection<QuestionAnswer>();
                 Model.Add(participateModel.QuestionAnswers[index]);
-
-                Device.StartTimer(TimeSpan.FromSeconds(1), TimerCallback);
+                timer.Start();
             }
         }
 
@@ -151,6 +152,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         private async void Finish(object obj = null)
         {
+            timer.Stop();
             if (Services.Service.HasInternetConnection())
             {
                 await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
@@ -178,7 +180,6 @@ namespace TestingSystem.XamarinForms.ViewModels
                     }
                 }
                 participateModel.Result = result.Result;
-
                 await resultService.PostAsync(result);
                 await cacheProvider.RemoveAsync("Participate");
                 await cacheProvider.RemoveAsync("Tests");
@@ -196,7 +197,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                 return true;
             else
             {
-                Finish(null);
+                Finish();
                 return false;
             }
         }

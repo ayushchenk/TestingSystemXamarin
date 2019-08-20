@@ -12,18 +12,30 @@
             <cnvrt:ImagePathValueConverter x:Key="pathConverter"/>
             <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
         </StackLayout.Resources>
-        <Image 
-            HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
-            WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
-            Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"
-            HorizontalOptions="Center" 
-            Aspect="AspectFit"/>
+        <Grid Padding="0" Margin="0" HorizontalOptions="Center" 
+              HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
+              WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" Grid.Column="0"
+                    HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
+                    WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
+                    Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"
+                    HorizontalOptions="Center" 
+                    x:Name="img"
+                    Aspect="AspectFit"/>
+            <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{Binding Source={x:Reference img}, Path=IsLoading}" HeightRequest="80" WidthRequest="80"/>
+        </Grid>
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
-        <ListView ItemsSource="{Binding Answers}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" MinimumHeightRequest="20" HasUnevenRows="True">
+        <ListView ItemsSource="{Binding Answers}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" MinimumHeightRequest="20" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame Padding="2" Margin="7" CornerRadius="15">
+                        <Frame Padding="2" Margin="5" CornerRadius="15">
                             <Label Text="{Binding AnswerString}" TextColor="Gray" LineBreakMode="WordWrap" Margin="10" VerticalOptions="CenterAndExpand"/>
                         </Frame>
                     </ViewCell>

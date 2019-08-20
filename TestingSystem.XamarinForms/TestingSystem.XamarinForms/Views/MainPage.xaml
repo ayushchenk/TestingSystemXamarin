@@ -7,6 +7,7 @@
              xmlns:v="clr-namespace:TestingSystem.XamarinForms.Views"
              xmlns:m="clr-namespace:TestingSystem.XamarinForms.Models"
              x:Name="master"
+                  
              NavigationPage.HasNavigationBar="False"
              x:Class="TestingSystem.XamarinForms.MainPage">
     <MasterDetailPage.Master>
