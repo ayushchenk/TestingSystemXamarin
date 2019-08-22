@@ -20,14 +20,24 @@ namespace TestingSystem.XamarinForms.Models
         public List<QuestionAnswer> QuestionAnswers { set; get; } = new List<QuestionAnswer>();
     }
 
-    public class QuestionAnswer
+    public class QuestionAnswer:INotifyPropertyChanged
     {
+        private QuestionAnswerDTO selected;
+
         public QuestionDTO Question { set; get; }
         public List<QuestionAnswerDTO> Answers { set; get; } = new List<QuestionAnswerDTO>();
-        public QuestionAnswerDTO SelectedItem { set; get; }
         public string AnswerString { set; get; }
         public int AnswerId { set; get; }
 
+        public QuestionAnswerDTO SelectedItem
+        {
+            set
+            {
+                selected = value;
+                Notify();
+            }
+            get { return selected; }
+        }
         public string CorrectAnswerString
         {
             get
@@ -49,6 +59,13 @@ namespace TestingSystem.XamarinForms.Models
                 if (allCount == 1 && correctCount == 1) return QuestionType.OneAnswerOneCorrect;
                 return QuestionType.Undefined;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void Notify([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 

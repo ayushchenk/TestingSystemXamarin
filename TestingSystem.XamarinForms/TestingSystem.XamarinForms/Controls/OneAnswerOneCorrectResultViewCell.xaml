@@ -31,8 +31,8 @@
         </Grid>
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
         <StackLayout Padding="10">
-            <Label Text="{Binding CorrectAnswerString, StringFormat='Correct answer: {0}'}"  />
-            <Label Text="{Binding AnswerString, StringFormat='Your answer: {0}'}"/>
+            <Label Text="{Binding CorrectAnswerString, StringFormat='Correct answer: {0}'}" FontSize="Medium" />
+            <Label Text="{Binding AnswerString, StringFormat='Your answer: {0}'}" FontSize="Medium"/>
         </StackLayout>
     </StackLayout>
 </ViewCell>

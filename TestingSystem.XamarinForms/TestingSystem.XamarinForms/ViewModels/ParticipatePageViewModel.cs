@@ -38,7 +38,11 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         public string TimeString
         {
-            get { Notify(); return String.Format("{0:g}", time); }
+            get
+            {
+                Notify();
+                return time.Hours > 0 ? time.ToString(@"hh\:mm\:ss") : time.ToString(@"mm\:ss");
+            }
         }
 
         public int Current
@@ -91,6 +95,8 @@ namespace TestingSystem.XamarinForms.ViewModels
                                 participateModel.QuestionAnswers.Insert(index, Model[0]);
                                 Model.Clear();
                                 Model.Add(participateModel.QuestionAnswers[++index]);
+                                if (participateModel.QuestionAnswers[index].SelectedItem != null)
+                                    Model[0].SelectedItem = participateModel.QuestionAnswers[index].SelectedItem;
                                 cacheProvider.Set("Participate", participateModel);
                             });
                         }
@@ -116,6 +122,8 @@ namespace TestingSystem.XamarinForms.ViewModels
                                participateModel.QuestionAnswers.Insert(index, Model[0]);
                                Model.Clear();
                                Model.Add(participateModel.QuestionAnswers[--index]);
+                               if (participateModel.QuestionAnswers[index].SelectedItem != null)
+                                   Model[0].SelectedItem = participateModel.QuestionAnswers[index].SelectedItem;
                                cacheProvider.Set("Participate", participateModel);
                            });
                        }
@@ -141,6 +149,8 @@ namespace TestingSystem.XamarinForms.ViewModels
                 Total = participateModel.QuestionAnswers.Count;
                 Model = new ObservableCollection<QuestionAnswer>();
                 Model.Add(participateModel.QuestionAnswers[index]);
+                if (participateModel.QuestionAnswers[index].SelectedItem != null)
+                    Model[0].SelectedItem = participateModel.QuestionAnswers[index].SelectedItem;
                 timer.Start();
             }
         }

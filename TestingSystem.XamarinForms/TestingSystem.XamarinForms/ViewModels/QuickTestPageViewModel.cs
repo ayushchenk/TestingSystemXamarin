@@ -31,7 +31,11 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         public string TimeString
         {
-             get { Notify(); return String.Format("{0:g}", time); }
+             get
+             {
+                 Notify();
+                 return time.Hours > 0 ? time.ToString(@"hh\:mm\:ss") : time.ToString(@"mm\:ss");
+             }
         }
         public int Total { set; get; }
         public DataTemplate ItemTemplate { set; get; }
@@ -177,7 +181,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                 return true;
             else
             {
-                Finish(null);
+                Finish();
                 return false;
             }
         }
