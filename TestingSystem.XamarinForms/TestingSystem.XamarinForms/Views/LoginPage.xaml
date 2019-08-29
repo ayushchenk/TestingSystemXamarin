@@ -12,13 +12,13 @@
                    WidthRequest="270"
                    x:Name="entryEmail"
                    FontSize="Default"
-                   HorizontalOptions="CenterAndExpand" />
+                   HorizontalOptions="CenterAndExpand"/>
             <Entry Placeholder="Password"
                    IsPassword="True"
                    WidthRequest="270"
                    FontSize="Default"
                    x:Name="entryPassword"
-                   HorizontalOptions="CenterAndExpand" />
+                   HorizontalOptions="CenterAndExpand"/>
             <Button Text="Login"
                     x:Name="btnLogin"
                     WidthRequest="150"

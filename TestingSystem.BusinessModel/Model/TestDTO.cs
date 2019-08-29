@@ -12,8 +12,6 @@ namespace TestingSystem.BusinessModel.Model
         [DisplayName("Test")]
         public string TestName { get; set; }
 
-        public bool IsOpen { get; set; }
-
         [Range(1, 100, ErrorMessage = "Please enter number between 1 and 100")]
         public int QuestionCount { set; get; }
 
@@ -25,10 +23,8 @@ namespace TestingSystem.BusinessModel.Model
         [DisplayName("Subject")]
         public string SubjectName { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Please select")]
         public int SpecializationId { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Please select")]
         public int SubjectId { get; set; }
 
         public int EducationUnitId { get; set; }

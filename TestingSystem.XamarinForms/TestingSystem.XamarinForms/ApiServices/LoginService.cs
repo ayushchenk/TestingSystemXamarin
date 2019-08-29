@@ -37,7 +37,7 @@ namespace TestingSystem.XamarinForms.ApiServices
             if (result.IsSuccessful)
                 result.Id = int.Parse(await response.Content.ReadAsStringAsync());
             else
-                result.Message = JsonConvert.DeserializeObject<MessageModel>(await response.Content.ReadAsStringAsync()).Message;
+                result.Message = "Wrong credentials";
             return result;
         }
 
