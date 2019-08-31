@@ -8,6 +8,7 @@
              x:Class="TestingSystem.XamarinForms.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
+            <Image Source="ieslogocircle2" HeightRequest="150" WidthRequest="150" Margin="0,0,0,30"/>
             <Entry Placeholder="Email"
                    WidthRequest="270"
                    x:Name="entryEmail"

@@ -34,8 +34,8 @@
                                             <ColumnDefinition Width="60"/>
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="{Binding IconSource}" />
-                                        <Label Grid.Column="1" Text="{Binding Title}" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold"/>
+                                        <Image Source="{Binding IconSource}" Margin="5,0,0,0"/>
+                                        <Label Grid.Column="1" Text="{Binding Title}" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold" Margin="10,0,0,0"/>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

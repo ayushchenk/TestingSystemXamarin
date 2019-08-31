@@ -18,6 +18,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     public class TestPageViewModel:INotifyPropertyChanged
     {
+        private bool isVisible;
         private int id;
         private StudentDTO student;
         private CacheProvider cacheProvider;
@@ -29,6 +30,16 @@ namespace TestingSystem.XamarinForms.ViewModels
         private IEnumerable<GroupsInTestDTO> tests;
 
         public GroupsInTestDTO SelectedItem { set; get; }
+
+        public bool IsLabelVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                Notify();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -74,6 +85,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                         if (Services.Service.HasInternetConnection())
                         {
                             Tests = (await testService.GetAllAsync()).Where(git => git.GroupId == student.GroupId);
+                            IsLabelVisible = Tests.Count() != 0 ? false : true;
                             await cacheProvider.SetAsync("Tests", Tests.ToList());
                         }
                     });
@@ -95,6 +107,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     this.student = await cacheProvider.GetAsync<StudentDTO>("Student") ?? await studentService.GetAsync(id);
                     Tests = await cacheProvider.GetAsync<List<GroupsInTestDTO>>("Tests") 
                         ?? (await testService.GetAllAsync()).Where(git => git.GroupId == student.GroupId);
+                    IsLabelVisible = Tests.Count() != 0 ? false : true;
                     await cacheProvider.SetAsync("Student", student);
                     await cacheProvider.SetAsync("Tests", Tests.ToList());
                 });

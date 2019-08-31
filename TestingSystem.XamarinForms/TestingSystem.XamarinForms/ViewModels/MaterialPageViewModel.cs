@@ -16,6 +16,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     public class MaterialPageViewModel : INotifyPropertyChanged
     {
+        private bool isVisible;
         private StudentDTO student;
         private IEnumerable<StudyingMaterialDTO> studyingMaterials;
 
@@ -27,6 +28,16 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
         public StudyingMaterialDTO SelectedItem { set; get; }
+
+        public bool IsLabelVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                Notify();
+            }
+        }
 
         public IEnumerable<StudyingMaterialDTO> StudyingMaterials
         {
@@ -49,6 +60,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                        if (Services.Service.HasInternetConnection())
                        {
                            StudyingMaterials = (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
+                           IsLabelVisible = StudyingMaterials.Count() != 0 ? false : true;
                            await cacheProvider.SetAsync("StudyingMaterials", StudyingMaterials.ToList());
                        }
                    });
@@ -78,6 +90,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     student = await cacheProvider.GetAsync<StudentDTO>("Student") ?? await studentService.GetAsync(id);
                     StudyingMaterials = await cacheProvider.GetAsync<List<StudyingMaterialDTO>>("StudyingMaterials")
                         ?? (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
+                    IsLabelVisible = StudyingMaterials.Count() != 0 ? false : true;
                     await cacheProvider.SetAsync("Student", student);
                     await cacheProvider.SetAsync("StudyingMaterials", StudyingMaterials.ToList());
                 });

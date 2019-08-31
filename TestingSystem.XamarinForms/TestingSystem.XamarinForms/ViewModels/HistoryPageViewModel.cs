@@ -14,6 +14,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     class HistoryPageViewModel : INotifyPropertyChanged
     {
+        private bool isVisible;
         private StudentDTO student;
         private IEnumerable<StudentTestResultDTO> results;
         private CacheProvider cacheProvider;
@@ -22,6 +23,16 @@ namespace TestingSystem.XamarinForms.ViewModels
         private ICommand refreshCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool IsLabelVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                Notify();
+            }
+        }
 
         public ICommand RefreshCommand
         {
@@ -33,6 +44,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                         if (Services.Service.HasInternetConnection())
                         {
                             Results = (await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
+                            IsLabelVisible = Results.Count() != 0 ? false : true;
                             await cacheProvider.SetAsync("Results", Results.ToList());
                         }
                     });
@@ -65,6 +77,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     {
                         Results = await cacheProvider.GetAsync<List<StudentTestResultDTO>>("Results")
                             ?? (await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
+                        IsLabelVisible = Results.Count() != 0 ? false : true;
                         await cacheProvider.SetAsync("Results", Results.ToList());
                     }
                     else

@@ -11,29 +11,32 @@
         <ToolbarItem IconImageSource="refresh.png" Command="{Binding RefreshCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding Tests}" SelectionMode="Single" RowHeight="55">
-            <ListView.Behaviors>
-                <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}"/>
-            </ListView.Behaviors>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TestName}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium"/>
-                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding StartTime}" HorizontalOptions="Center"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=Length, StringFormat='Length: {0}'}" HorizontalOptions="Center"/>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout>
+            <Label Text="No upcoming tests" IsVisible="{Binding IsLabelVisible}" IsEnabled="{Binding IsLabelVisible}" FontSize="Large" FontAttributes="Bold" Margin="0,10,0,0" HorizontalOptions="CenterAndExpand"/>
+            <ListView SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding Tests}" SelectionMode="Single" RowHeight="55">
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TestName}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium"/>
+                                <Label Grid.Row="1" Grid.Column="0" Text="{Binding StartTime}" HorizontalOptions="Center"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=Length, StringFormat='Length: {0}'}" HorizontalOptions="Center"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
