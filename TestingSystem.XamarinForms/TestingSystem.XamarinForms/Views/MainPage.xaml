@@ -14,7 +14,7 @@
         <ContentPage Title="Master">
             <ContentPage.Content>
                 <StackLayout>
-                    <Image Source="LogoIES.png" Aspect="AspectFit" BackgroundColor="#d1d1d1"/>
+                    <Image Source="LogoIES.png" Aspect="AspectFit" BackgroundColor="#d1d1d1" HeightRequest="100"/>
                     <ListView x:Name="listView" x:FieldModifier="public" RowHeight="60">
                         <ListView.ItemsSource>
                             <x:Array Type="{x:Type m:MasterPageItem}">
