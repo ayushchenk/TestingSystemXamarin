@@ -37,7 +37,7 @@ namespace TestingSystem.XamarinForms.Views
                     return;
                 }
                 var result = await service.LoginAsync(entryEmail.Text, entryPassword.Text);
-                if (result.IsSuccessful)
+                if (result != null && result.IsSuccessful)
                 {
                     await Navigation.PushAsync(new MainPage(result.Id));
                     Navigation.RemovePage(this);

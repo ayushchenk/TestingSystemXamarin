@@ -70,13 +70,13 @@ namespace TestingSystem.XamarinForms.ViewModels
                             await Application.Current.MainPage.DisplayAlert("Warning", "You must select all fields", "OK");
                             return;
                         }
+                        await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup() { });
                         QuickTestApiModel model = new QuickTestApiModel()
                         {
                             SubjectId = SelectedSubject.Id,
                             QuestionCount = int.Parse(this.QuestionCount)
                         };
 
-                        await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
                         var participateModel = await testService.GetAsync(model);
 
                         await Application.Current.MainPage.Navigation.PopToRootAsync();

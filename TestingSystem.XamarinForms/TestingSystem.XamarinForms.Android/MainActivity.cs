@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using System.Linq;
 
 namespace TestingSystem.XamarinForms.Droid
 {
@@ -20,10 +21,10 @@ namespace TestingSystem.XamarinForms.Droid
             //base.SetTheme(Resource.Style.MainTheme);
             base.OnCreate(savedInstanceState);
 
-            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             LoadApplication(new App());
@@ -39,7 +40,7 @@ namespace TestingSystem.XamarinForms.Droid
         {
             //if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
             //{
-            //    if (Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopupStack.Count != 0)
+            //    if (Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopupStack.Count() != 0)
             //        Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
             //}
         }

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TestingSystem.BusinessModel.Model;
+using Xamarin.Forms;
 
 namespace TestingSystem.XamarinForms.ApiServices
 {
@@ -21,8 +22,17 @@ namespace TestingSystem.XamarinForms.ApiServices
 
         public IEnumerable<SubjectDTO> GetAll()
         {
-            string result = client.GetStringAsync(url).Result;
-            return JsonConvert.DeserializeObject<IEnumerable<SubjectDTO>>(result);
+            try
+            {
+                string result = client.GetStringAsync(url).Result;
+                return JsonConvert.DeserializeObject<IEnumerable<SubjectDTO>>(result);
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Check interner connection", $"An error occured while processing web request", "OK");
+                Application.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            return null;
         }
 
         public Task<IEnumerable<SubjectDTO>> GetAllAsync()
@@ -32,8 +42,17 @@ namespace TestingSystem.XamarinForms.ApiServices
 
         public SubjectDTO Get(int id)
         {
+            try
+            {
             string result = client.GetStringAsync(url + "/" + id).Result;
             return JsonConvert.DeserializeObject<SubjectDTO>(result);
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Check interner connection", $"An error occured while processing web request", "OK");
+                Application.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            return null;
         }
 
         public Task<SubjectDTO> GetAsync(int id)

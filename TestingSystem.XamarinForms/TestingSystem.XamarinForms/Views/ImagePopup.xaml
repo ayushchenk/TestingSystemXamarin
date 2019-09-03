@@ -20,7 +20,7 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <ScrollView>
+    <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
         <Grid Padding="0" Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition/>

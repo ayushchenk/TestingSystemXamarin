@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TestingSystem.XamarinForms.Models;
+using Xamarin.Forms;
 
 namespace TestingSystem.XamarinForms.ApiServices
 {
@@ -21,20 +22,29 @@ namespace TestingSystem.XamarinForms.ApiServices
 
         public ParticipateViewModel Get(QuickTestApiModel model)
         {
-            var keyValues = new List<KeyValuePair<string, string>>()
+            try
             {
-                new KeyValuePair<string, string>("SubjectId", model.SubjectId.ToString()),
-                new KeyValuePair<string, string>("QuestionCount", model.QuestionCount.ToString())
-            };
+                var keyValues = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("SubjectId", model.SubjectId.ToString()),
+                    new KeyValuePair<string, string>("QuestionCount", model.QuestionCount.ToString())
+                };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Content = new FormUrlEncodedContent(keyValues);
+                var request = new HttpRequestMessage(HttpMethod.Post, url);
+                request.Content = new FormUrlEncodedContent(keyValues);
 
-            var response = client.SendAsync(request).Result;
-            if (response.IsSuccessStatusCode)
-                return JsonConvert.DeserializeObject<ParticipateViewModel>(response.Content.ReadAsStringAsync().Result);
-            else
-                return null;
+                var response = client.SendAsync(request).Result;
+                if (response.IsSuccessStatusCode)
+                    return JsonConvert.DeserializeObject<ParticipateViewModel>(response.Content.ReadAsStringAsync().Result);
+                else
+                    return null;
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Check interner connection", $"An error occured while processing web request", "OK");
+                Application.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            return null;
         }
 
         public Task<ParticipateViewModel> GetAsync(QuickTestApiModel model)

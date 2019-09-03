@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TestingSystem.XamarinForms.Models;
+using Xamarin.Forms;
 
 namespace TestingSystem.XamarinForms.ApiServices
 {
@@ -21,8 +22,17 @@ namespace TestingSystem.XamarinForms.ApiServices
 
         public ParticipateViewModel Get(int id)
         {
-            string result = client.GetStringAsync(url + "/" + id).Result;
-            return JsonConvert.DeserializeObject<ParticipateViewModel>(result);
+            try
+            {
+                string result = client.GetStringAsync(url + "/" + id).Result;
+                return JsonConvert.DeserializeObject<ParticipateViewModel>(result);
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Check interner connection", $"An error occured while processing web request", "OK");
+                Application.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            return null;
         }
 
         public Task<ParticipateViewModel> GetAsync(int id)
