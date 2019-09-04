@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.Infrastructure;
+using TestingSystem.XamarinForms.SQLite.Repository;
 using TestingSystem.XamarinForms.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -15,33 +16,31 @@ namespace TestingSystem.XamarinForms
 {
     public partial class App : Application
     {
-        private CacheProvider cacheProvider;
+        private const string dbName = "TestingSystemXamarin.db";
+        private static ParticipateRepository participateRepository;
+        public static ParticipateRepository ParticipateRepository
+        {
+            get
+            {
+                if (participateRepository == null)
+                    participateRepository = new ParticipateRepository(dbName);
+                return participateRepository;
+            }
+        }
 
         public App()
         {
-            Xamarin.Forms.Internals.Log.Listeners.Add(new DelegateLogListener((arg1, arg2) => Debug.WriteLine(arg2)));
-
             InitializeComponent();
 
-            cacheProvider = new CacheProvider();
             MainPage = new NavigationPage(new LoginPage());
             Barrel.ApplicationId = "TestingSystemXamarin";
             Barrel.Current.EmptyAll();
         }
 
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
+        protected override void OnStart() { }
 
-        protected override void OnSleep()
-        {
+        protected override void OnSleep() { }
 
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+        protected override void OnResume() { }
     }
 }

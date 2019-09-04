@@ -190,6 +190,11 @@ namespace TestingSystem.XamarinForms.ViewModels
                     }
                 }
                 participateModel.Result = result.Result;
+                var model = await App.ParticipateRepository.SaveAsync(new SQLite.Model.ParticipateSQLiteModel
+                {
+                    ParticipateModelJSONString = Newtonsoft.Json.JsonConvert.SerializeObject(participateModel),
+                    GroupInTestId = participateModel.GroupInTestId
+                });
                 await resultService.PostAsync(result);
                 await cacheProvider.RemoveAsync("Participate");
                 await cacheProvider.RemoveAsync("Tests");

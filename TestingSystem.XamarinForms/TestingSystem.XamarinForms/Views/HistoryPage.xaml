@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
              mc:Ignorable="d"
              Title="History"
              x:Class="TestingSystem.XamarinForms.Views.HistoryPage">
@@ -12,7 +13,10 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="No tests history" IsVisible="{Binding IsLabelVisible}" IsEnabled="{Binding IsLabelVisible}" FontSize="Large" FontAttributes="Bold" Margin="0,10,0,0" HorizontalOptions="CenterAndExpand"/>
-            <ListView ItemsSource="{Binding Results}" SelectionMode="None" RowHeight="60">
+            <ListView ItemsSource="{Binding Results}" SelectionMode="Single" RowHeight="60" SelectedItem="{Binding SelectedItem}">
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}"/>
+                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

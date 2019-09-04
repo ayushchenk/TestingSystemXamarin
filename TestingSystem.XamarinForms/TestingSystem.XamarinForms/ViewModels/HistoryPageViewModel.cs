@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TestingSystem.XamarinForms.Models;
 using System.Collections.ObjectModel;
+using Xamarin.Forms;
+using TestingSystem.XamarinForms.Views;
 
 namespace TestingSystem.XamarinForms.ViewModels
 {
@@ -21,8 +23,11 @@ namespace TestingSystem.XamarinForms.ViewModels
         private ResultService resultService;
         private StudentService studentService;
         private ICommand refreshCommand;
+        private ICommand tapCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public StudentTestResultDTO SelectedItem { set; get; }
 
         public bool IsLabelVisible
         {
@@ -31,6 +36,29 @@ namespace TestingSystem.XamarinForms.ViewModels
             {
                 isVisible = value;
                 Notify();
+            }
+        }
+
+        public ICommand ItemTappedCommand
+        {
+            get
+            {
+                if (tapCommand == null)
+                    tapCommand = new RelayCommand(async (obj) =>
+                    {
+                        if (SelectedItem != null)
+                        {
+                            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
+                            var sqliteModel = await App.ParticipateRepository.FindByAsync(x=> x.GroupInTestId == SelectedItem.GroupInTestId);
+                            if (sqliteModel.Count != 0)
+                            {
+                                var participateModel = Newtonsoft.Json.JsonConvert.DeserializeObject<ParticipateViewModel>(sqliteModel.First().ParticipateModelJSONString);
+                                await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)));
+                            }
+                            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
+                        }
+                    });
+                return tapCommand;
             }
         }
 
