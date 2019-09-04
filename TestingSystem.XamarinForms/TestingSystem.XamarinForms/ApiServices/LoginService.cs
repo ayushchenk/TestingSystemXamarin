@@ -19,7 +19,7 @@ namespace TestingSystem.XamarinForms.ApiServices
         public LoginService()
         {
             client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Add("Accept", "application/json");            
         }
 
         public async Task<LoginResult> LoginAsync(string email, string password)

@@ -19,6 +19,7 @@ namespace TestingSystem.XamarinForms.ApiServices
         {
             client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
+            Services.Service.SetBasicAuthHeader(client);
         }
 
         public IEnumerable<StudentTestResultDTO> GetAll()
