@@ -13,7 +13,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="No study materials" IsVisible="{Binding IsLabelVisible}" IsEnabled="{Binding IsLabelVisible}" FontSize="Large" FontAttributes="Bold" Margin="0,10,0,0" HorizontalOptions="CenterAndExpand"/>
-            <ListView SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding StudyingMaterials}" SelectionMode="Single" HasUnevenRows="True">
+            <ListView SelectedItem="{Binding SelectedItem}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" ItemsSource="{Binding StudyingMaterials}" SelectionMode="Single" HasUnevenRows="True" IsRefreshing="{Binding IsRefreshing}">
                 <ListView.Behaviors>
                     <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}"/>
                 </ListView.Behaviors>

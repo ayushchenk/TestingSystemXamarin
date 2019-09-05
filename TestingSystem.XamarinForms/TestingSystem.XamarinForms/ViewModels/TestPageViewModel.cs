@@ -18,6 +18,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     public class TestPageViewModel:INotifyPropertyChanged
     {
+        private bool isRefreshing;
         private bool isVisible;
         private int id;
         private StudentDTO student;
@@ -30,6 +31,16 @@ namespace TestingSystem.XamarinForms.ViewModels
         private IEnumerable<GroupsInTestDTO> tests;
 
         public GroupsInTestDTO SelectedItem { set; get; }
+
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                isRefreshing = value;
+                Notify();
+            }
+        }
 
         public bool IsLabelVisible
         {
@@ -87,6 +98,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                             Tests = (await testService.GetAllAsync()).Where(git => git.GroupId == student.GroupId);
                             IsLabelVisible = Tests.Count() != 0 ? false : true;
                             await cacheProvider.SetAsync("Tests", Tests.ToList());
+                            IsRefreshing = false;
                         }
                     });
                 return refreshCommand;

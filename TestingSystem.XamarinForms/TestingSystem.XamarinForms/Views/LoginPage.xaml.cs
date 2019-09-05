@@ -43,7 +43,10 @@ namespace TestingSystem.XamarinForms.Views
                     Navigation.RemovePage(this);
                 }
                 else
+                {
+                    entryPassword.Text = String.Empty;
                     await DisplayAlert("Alert", result.Message, "OK");
+                }
                 await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
             };
         }

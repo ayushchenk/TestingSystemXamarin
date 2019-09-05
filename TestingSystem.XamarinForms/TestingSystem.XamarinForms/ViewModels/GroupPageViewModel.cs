@@ -15,6 +15,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     class GroupPageViewModel : INotifyPropertyChanged
     {
+        private bool isRefreshing;
         private StudentDTO student;
         private StudentService service;
         private CacheProvider cacheProvider;
@@ -24,6 +25,16 @@ namespace TestingSystem.XamarinForms.ViewModels
         public string GroupName { get { return student.GroupName; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                isRefreshing = value;
+                Notify();
+            }
+        }
 
         public ICommand RefreshCommand
         {
@@ -35,7 +46,8 @@ namespace TestingSystem.XamarinForms.ViewModels
                         if (Services.Service.HasInternetConnection())
                         {
                             Students = (await service.GetAllAsync()).Where(student => student.GroupId == this.student.GroupId);
-                            await Task.Run(() => cacheProvider.Set("Students", Students.ToList()));
+                            await cacheProvider.SetAsync("Students", Students.ToList());
+                            IsRefreshing = false;
                         }
                     });
                 return refreshCommand;

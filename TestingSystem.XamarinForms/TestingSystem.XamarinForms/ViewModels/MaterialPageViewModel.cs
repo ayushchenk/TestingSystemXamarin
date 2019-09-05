@@ -16,6 +16,7 @@ namespace TestingSystem.XamarinForms.ViewModels
 {
     public class MaterialPageViewModel : INotifyPropertyChanged
     {
+        private bool isRefreshing;
         private bool isVisible;
         private StudentDTO student;
         private IEnumerable<StudyingMaterialDTO> studyingMaterials;
@@ -28,6 +29,16 @@ namespace TestingSystem.XamarinForms.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
         public StudyingMaterialDTO SelectedItem { set; get; }
+
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                isRefreshing = value;
+                Notify();
+            }
+        }
 
         public bool IsLabelVisible
         {
@@ -62,6 +73,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                            StudyingMaterials = (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
                            IsLabelVisible = StudyingMaterials.Count() != 0 ? false : true;
                            await cacheProvider.SetAsync("StudyingMaterials", StudyingMaterials.ToList());
+                           IsRefreshing = false;
                        }
                    });
                 return refreshCommand;

@@ -10,7 +10,7 @@
         <ToolbarItem IconImageSource="refresh.png" Command="{Binding RefreshCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Students}" SelectionMode="None" HasUnevenRows="True">
+        <ListView ItemsSource="{Binding Students}" SelectionMode="None" HasUnevenRows="True" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
