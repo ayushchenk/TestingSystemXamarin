@@ -70,6 +70,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                    {
                        if (Services.Service.HasInternetConnection())
                        {
+                           IsRefreshing = true;
                            StudyingMaterials = (await materialService.GetAllAsync()).Where(material => material.SpecializationId == student.SpecializationId);
                            IsLabelVisible = StudyingMaterials.Count() != 0 ? false : true;
                            await cacheProvider.SetAsync("StudyingMaterials", StudyingMaterials.ToList());

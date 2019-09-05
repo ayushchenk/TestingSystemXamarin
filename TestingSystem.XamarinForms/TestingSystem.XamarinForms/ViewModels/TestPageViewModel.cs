@@ -95,6 +95,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     {
                         if (Services.Service.HasInternetConnection())
                         {
+                            IsRefreshing = true;
                             Tests = (await testService.GetAllAsync()).Where(git => git.GroupId == student.GroupId);
                             IsLabelVisible = Tests.Count() != 0 ? false : true;
                             await cacheProvider.SetAsync("Tests", Tests.ToList());

@@ -82,6 +82,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     {
                         if (Services.Service.HasInternetConnection())
                         {
+                            IsRefreshing = true;
                             Results = (await resultService.GetAllAsync()).Where(result => result.StudentId == student.Id);
                             IsLabelVisible = Results.Count() != 0 ? false : true;
                             await cacheProvider.SetAsync("Results", Results.ToList());

@@ -45,6 +45,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                     {
                         if (Services.Service.HasInternetConnection())
                         {
+                            IsRefreshing = true;
                             Students = (await service.GetAllAsync()).Where(student => student.GroupId == this.student.GroupId);
                             await cacheProvider.SetAsync("Students", Students.ToList());
                             IsRefreshing = false;
