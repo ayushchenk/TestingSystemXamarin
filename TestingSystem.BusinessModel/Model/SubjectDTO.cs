@@ -1,5 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TestingSystem.BusinessModel.Model
 {
@@ -22,10 +27,5 @@ namespace TestingSystem.BusinessModel.Model
         public int? EducationUnitId { get; set; }
 
         public int Questions { set; get; }
-
-        public override string ToString()
-        {
-            return SubjectName;
-        }
     }
 }

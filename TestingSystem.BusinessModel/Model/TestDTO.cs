@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace TestingSystem.BusinessModel.Model
@@ -12,8 +14,14 @@ namespace TestingSystem.BusinessModel.Model
         [DisplayName("Test")]
         public string TestName { get; set; }
 
-        [Range(1, 100, ErrorMessage = "Please enter number between 1 and 100")]
-        public int QuestionCount { set; get; }
+        [Range(0, 50, ErrorMessage = "Please enter number between 0 and 50")]
+        public int EasyCount { get; set; }
+
+        [Range(0, 50, ErrorMessage = "Please enter number between 0 and 50")]
+        public int MediumCount { get; set; }
+
+        [Range(0, 50, ErrorMessage = "Please enter number between 0 and 50")]
+        public int HardCount { get; set; }
 
         [StringLength(64)]
         [DisplayName("Specialization")]
@@ -23,12 +31,16 @@ namespace TestingSystem.BusinessModel.Model
         [DisplayName("Subject")]
         public string SubjectName { get; set; }
 
-        public int SpecializationId { get; set; }
+        public int TeacherId { set; get; }
 
         public int SubjectId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
+        public int SpecializationId { get; set; }
+
         public int EducationUnitId { get; set; }
 
-        public int TeacherId { set; get; }
+        public IEnumerable<ThemesInTestDTO> Themes { set; get; }
     }
 }

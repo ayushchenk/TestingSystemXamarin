@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TestingSystem.BusinessModel.Model
 {
@@ -8,7 +7,7 @@ namespace TestingSystem.BusinessModel.Model
         public int Id { get; set; }
 
         [Required]
-        [StringLength(512)]
+        [StringLength(1024)]
         public string AnswerString { get; set; }
 
         public bool IsCorrect { get; set; }

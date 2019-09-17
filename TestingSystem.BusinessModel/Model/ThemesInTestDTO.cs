@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -8,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace TestingSystem.BusinessModel.Model
 {
-    public class EducationUnitDTO
+    public class ThemesInTestDTO
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(128)]
-        [DisplayName("Education unit")]
-        public string EducationUnitName { get; set; }
+        public int ThemeId { get; set; }
+
+        public int TestId { get; set; }
+
+        public string ThemeName { set; get; }
     }
 }

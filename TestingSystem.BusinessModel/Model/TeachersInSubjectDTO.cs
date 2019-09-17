@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,18 @@ using System.Threading.Tasks;
 
 namespace TestingSystem.BusinessModel.Model
 {
-    public class AdminDTO
+    public class TeachersInSubjectDTO
     {
         public int Id { get; set; }
 
-        [Required]
+        public int TeacherId { get; set; }
+
+        public int SubjectId { get; set; }
+
+        [StringLength(32)]
+        [DisplayName("Subject")]
+        public string SubjectName { get; set; }
+
         [StringLength(64)]
         public string Email { get; set; }
 
@@ -23,11 +31,13 @@ namespace TestingSystem.BusinessModel.Model
         [StringLength(64)]
         public string LastName { get; set; }
 
-        public bool IsGlobal { get; set; }
+        public int SpecializationId { set; get; }
 
-        public int? EducationUnitId { get; set; }
+        public bool IsDeleted { set; get; }
 
-        [StringLength(128)]
-        public string EducationUnitName { get; set; }
+        public string FullName
+        {
+            get { return $"{FirstName} {LastName} - {SubjectName}"; }
+        }
     }
 }
