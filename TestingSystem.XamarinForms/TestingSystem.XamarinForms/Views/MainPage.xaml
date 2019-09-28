@@ -23,7 +23,7 @@
                                 <m:MasterPageItem Title="Group" IconSource="group.png" TargetType="{x:Type v:GroupPage}" />
                                 <m:MasterPageItem Title="Study materials" IconSource="book.png" TargetType="{x:Type v:MaterialPage}" />
                                 <m:MasterPageItem Title="Profile" IconSource="profile.png" TargetType="{x:Type v:ProfilePage}" />
-                                <m:MasterPageItem Title="Trial test" IconSource="flame.jpg" TargetType="{x:Type v:QuickTestSetupPage}" />
+                                <m:MasterPageItem Title="Training test" IconSource="flame.jpg" TargetType="{x:Type v:QuickTestSetupPage}" />
                             </x:Array>
                         </ListView.ItemsSource>
                         <ListView.ItemTemplate>

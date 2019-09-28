@@ -27,5 +27,10 @@ namespace TestingSystem.BusinessModel.Model
         public int? EducationUnitId { get; set; }
 
         public int Questions { set; get; }
+
+        public override string ToString()
+        {
+            return SubjectName;
+        }
     }
 }
