@@ -18,15 +18,15 @@ namespace TestingSystem.XamarinForms.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            //base.SetTheme(Resource.Style.MainTheme);
             base.OnCreate(savedInstanceState);
-
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            Stormlion.PhotoBrowser.Droid.Platform.Init(this);
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
+
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

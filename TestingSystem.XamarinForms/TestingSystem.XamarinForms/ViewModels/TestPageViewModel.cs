@@ -74,11 +74,14 @@ namespace TestingSystem.XamarinForms.ViewModels
                         if (SelectedItem != null)
                         {
                             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new LoadingPopup());
-                            var participateModel = await cacheProvider.GetAsync<ParticipateViewModel>("Participate") ?? await participateService.GetAsync(SelectedItem.Id);
+                            var participateModel = await cacheProvider.GetAsync<ParticipateViewModel>("Participate" + SelectedItem.Id) ?? await participateService.GetAsync(SelectedItem.Id);
                             participateModel.StudentId = this.id;
                             participateModel.GroupInTestId = this.SelectedItem.Id;
-                            await cacheProvider.SetAsync("Participate", participateModel);
-                            await Application.Current.MainPage.Navigation.PushAsync(new ParticipatePage(participateModel));
+                            await cacheProvider.SetAsync("Participate" + participateModel.GroupInTestId, participateModel);
+                            if(Settings.UseListLayout)
+                                await Application.Current.MainPage.Navigation.PushAsync(new ParticipatePageList(participateModel));
+                            else
+                                await Application.Current.MainPage.Navigation.PushAsync(new ParticipatePage(participateModel));
                             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
                         }
                     });

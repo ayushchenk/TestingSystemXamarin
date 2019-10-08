@@ -37,9 +37,9 @@ namespace TestingSystem.XamarinForms
             Barrel.Current.EmptyAll();
         }
 
-        protected override void OnStart() { }
+        protected override void OnStart() { Settings.ReadSettings(); }
 
-        protected override void OnSleep() { }
+        protected override void OnSleep() { Settings.WriteSettings(); }
 
         protected override void OnResume() { }
     }

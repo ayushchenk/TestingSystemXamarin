@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stormlion.PhotoBrowser;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -41,10 +42,16 @@ namespace TestingSystem.XamarinForms.ViewModels
             get
             {
                 if (tapCommand == null)
-                    tapCommand = new RelayCommand(async (source) =>
+                    tapCommand = new RelayCommand((source) =>
                     {
                         if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
-                            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
+                        {
+                            PhotoBrowser photoBrowser = new PhotoBrowser()
+                            {
+                                Photos = new List<Photo>() { new Photo { URL = "https://testingsystemapplication.azurewebsites.net" + Model[0].Question.ImagePath } },
+                            };
+                            photoBrowser.Show();
+                        }
                     });
                 return tapCommand;
             }

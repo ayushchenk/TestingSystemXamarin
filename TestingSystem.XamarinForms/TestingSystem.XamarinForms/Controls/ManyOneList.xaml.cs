@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TestingSystem.XamarinForms.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace TestingSystem.XamarinForms.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ManyAnswersOneCorrectResultViewCell : ViewCell
+    public partial class ManyOneList : ContentView
     {
-        public ManyAnswersOneCorrectResultViewCell()
+        public ManyOneList()
         {
             InitializeComponent();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stormlion.PhotoBrowser;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -21,7 +22,6 @@ namespace TestingSystem.XamarinForms.ViewModels
         private Timer timer;
         private TimeSpan time;
         private ParticipateViewModel participateModel;
-        private QuickTestService testService;
         private ICommand finishCommand;
         private ICommand previousCommand;
         private ICommand nextCommand;
@@ -37,6 +37,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                  return time.Hours > 0 ? time.ToString(@"hh\:mm\:ss") : time.ToString(@"mm\:ss");
              }
         }
+
         public int Total { set; get; }
         public DataTemplate ItemTemplate { set; get; }
         public ObservableCollection<QuestionAnswer> Model { set; get; }
@@ -44,6 +45,26 @@ namespace TestingSystem.XamarinForms.ViewModels
         public int Current
         {
             get { Notify(); return index + 1; }
+        }
+
+        public ICommand ImageTapCommand
+        {
+            get
+            {
+                if (tapCommand == null)
+                    tapCommand = new RelayCommand((source) =>
+                    {
+                        if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
+                        {
+                            PhotoBrowser photoBrowser = new PhotoBrowser()
+                            {
+                                Photos = new List<Photo>() { new Photo { URL = "https://testingsystemapplication.azurewebsites.net" + Model[0].Question.ImagePath } },
+                            };
+                            photoBrowser.Show();
+                        }
+                    });
+                return tapCommand;
+            }
         }
 
         public ICommand FinishCommand
@@ -108,27 +129,12 @@ namespace TestingSystem.XamarinForms.ViewModels
             }
         }
 
-        public ICommand ImageTapCommand
-        {
-            get
-            {
-                if (tapCommand == null)
-                    tapCommand = new RelayCommand(async (source) =>
-                    {
-                        if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
-                            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new ImagePopup(Model[0].Question.ImagePath));
-                    });
-                return tapCommand;
-            }
-        }
-
         public QuickTestPageViewModel(ParticipateViewModel participateModel)
         {
             if (Services.Service.HasInternetConnection())
             {
                 index = 0;
                 timer = new Timer(TimeSpan.FromSeconds(1), TimerCallback);
-                testService = new QuickTestService();
                 ItemTemplate = new QuestionDataTemplateSelector();
                 Model = new ObservableCollection<QuestionAnswer>();
 

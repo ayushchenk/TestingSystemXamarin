@@ -11,9 +11,9 @@ using Xamarin.Forms.Xaml;
 namespace TestingSystem.XamarinForms.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ManyAnswersOneCorrectResultViewCell : ViewCell
+    public partial class ManyOneResultList : ContentView
     {
-        public ManyAnswersOneCorrectResultViewCell()
+        public ManyOneResultList()
         {
             InitializeComponent();
         }

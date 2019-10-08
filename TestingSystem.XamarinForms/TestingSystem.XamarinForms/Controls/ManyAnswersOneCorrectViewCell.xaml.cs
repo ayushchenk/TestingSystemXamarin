@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stormlion.PhotoBrowser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,37 +15,19 @@ namespace TestingSystem.XamarinForms.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ManyAnswersOneCorrectViewCell : ViewCell
     {
-        //public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(QuestionAnswerDTO), typeof(ManyAnswersOneCorrectViewCell), default(QuestionAnswerDTO), BindingMode.TwoWay);
-        //public QuestionAnswerDTO SelectedItem
-        //{
-        //    get
-        //    {
-        //        return (QuestionAnswerDTO)GetValue(SelectedItemProperty);
-        //    }
-
-        //    set
-        //    {
-        //        SetValue(SelectedItemProperty, value);
-        //    }
-        //}
-
-        //public static readonly BindableProperty QuestionStringProperty = BindableProperty.Create(nameof(QuestionString), typeof(string), typeof(ManyAnswersOneCorrectViewCell), default(string), BindingMode.TwoWay);
-        //public string QuestionString
-        //{
-        //    get
-        //    {
-        //        return (string)GetValue(QuestionStringProperty);
-        //    }
-
-        //    set
-        //    {
-        //        SetValue(QuestionStringProperty, value);
-        //    }
-        //}
-
         public ManyAnswersOneCorrectViewCell()
         {
             InitializeComponent();
+        }
+
+        void ImageTapped(object sender, EventArgs e)
+        {
+            var uri = img.Source.GetValue(UriImageSource.UriProperty);
+            PhotoBrowser photoBrowser = new PhotoBrowser()
+            {
+                Photos = new List<Photo>() { new Photo { URL = uri.ToString() } },
+            };
+            photoBrowser.Show();
         }
     }
 }

@@ -29,6 +29,8 @@ namespace TestingSystem.XamarinForms.Models
         public string AnswerString { set; get; }
         public int AnswerId { set; get; }
 
+        public int HeightRequest { get { return Answers.Count() * 75; } }
+
         public QuestionAnswerDTO SelectedItem
         {
             set

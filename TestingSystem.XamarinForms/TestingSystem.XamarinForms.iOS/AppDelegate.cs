@@ -27,6 +27,7 @@ namespace TestingSystem.XamarinForms.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
             ImageCircle.Forms.Plugin.iOS.ImageCircleRenderer.Init();
+            Stormlion.PhotoBrowser.iOS.Platform.Init();
 
             return base.FinishedLaunching(app, options);
         }

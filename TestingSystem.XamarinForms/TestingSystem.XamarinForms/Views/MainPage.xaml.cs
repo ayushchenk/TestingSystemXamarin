@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.ApiServices;
+using TestingSystem.XamarinForms.Infrastructure;
 using TestingSystem.XamarinForms.Models;
 using TestingSystem.XamarinForms.ViewModels;
 using TestingSystem.XamarinForms.Views;
@@ -37,6 +38,11 @@ namespace TestingSystem.XamarinForms
                 listView.SelectedItem = null;
                 IsPresented = false;
             }
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            Settings.UseListLayout = this.@switch.IsToggled;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stormlion.PhotoBrowser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace TestingSystem.XamarinForms.Controls
         public OneAnswerOneCorrectResultViewCell()
         {
             InitializeComponent();
+        }
+
+        void ImageTapped(object sender, EventArgs e)
+        {
+            var uri = img.Source.GetValue(UriImageSource.UriProperty);
+            PhotoBrowser photoBrowser = new PhotoBrowser()
+            {
+                Photos = new List<Photo>() { new Photo { URL = uri.ToString() } },
+            };
+            photoBrowser.Show();
         }
     }
 }

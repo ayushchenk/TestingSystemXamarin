@@ -84,6 +84,6 @@
             <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{Binding Source={x:Reference img}, Path=IsLoading}" HeightRequest="80" WidthRequest="80"/>
         </Grid>
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
-        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" SelectionMode="None" MinimumHeightRequest="15" HasUnevenRows="True"/>
+        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" HeightRequest="{Binding HeightRequest}" SelectionMode="None" MinimumHeightRequest="15" HasUnevenRows="True"/>
     </StackLayout>
 </ViewCell>

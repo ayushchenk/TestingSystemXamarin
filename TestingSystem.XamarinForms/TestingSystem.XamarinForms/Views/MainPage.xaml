@@ -41,6 +41,10 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <StackLayout Orientation="Horizontal" Margin="10" VerticalOptions="End">
+                        <Label Text="Use list layout: " VerticalOptions="Center" HorizontalOptions="Center"/>
+                        <Switch VerticalOptions="Center" HorizontalOptions="Center" x:Name="switch" Toggled="Switch_Toggled"/>
+                    </StackLayout>
                 </StackLayout>
             </ContentPage.Content>
         </ContentPage>

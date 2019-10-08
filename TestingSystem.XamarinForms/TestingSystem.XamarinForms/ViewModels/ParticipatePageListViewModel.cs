@@ -17,18 +17,17 @@ using Xamarin.Forms;
 
 namespace TestingSystem.XamarinForms.ViewModels
 {
-    public class ParticipatePageViewModel : INotifyPropertyChanged
+    public class ParticipatePageListViewModel : INotifyPropertyChanged
     {
-        private int index;
+        private bool isCachingStopped;
         private Timer timer;
+        private Timer cacheTimer;
         private TimeSpan time;
         private CacheProvider cacheProvider;
         private ResultService resultService;
         private ParticipateViewModel participateModel;
         private ICommand finishCommand;
-        private ICommand previousCommand;
-        private ICommand nextCommand;
-        private ICommand tapCommand;
+        private ICommand scrolledCommand;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -42,25 +41,6 @@ namespace TestingSystem.XamarinForms.ViewModels
             {
                 Notify();
                 return time.Hours > 0 ? time.ToString(@"hh\:mm\:ss") : time.ToString(@"mm\:ss");
-            }
-        }
-
-        public int Current
-        {
-            get { Notify(); return index + 1; }
-        }
-
-        public ICommand ImageTapCommand
-        {
-            get
-            {
-                if (tapCommand == null)
-                    tapCommand = new RelayCommand(async (source) =>
-                    {
-                        if (!String.IsNullOrWhiteSpace(Model[0].Question.ImagePath))
-                            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new ImagePopup("https://testingsystemapplication.azurewebsites.net" + Model[0].Question.ImagePath));
-                    });
-                return tapCommand;
             }
         }
 
@@ -78,67 +58,34 @@ namespace TestingSystem.XamarinForms.ViewModels
             }
         }
 
-        public ICommand NextCommand
+        public ICommand ScrolledCommand
         {
             get
             {
-                if (nextCommand == null)
-                    nextCommand = new RelayCommand((obj) =>
+                if (scrolledCommand == null)
+                    scrolledCommand = new RelayCommand(async (obj) =>
                     {
-                        if (index < participateModel.QuestionAnswers.Count - 1)
-                        {
-                            Task.Run(() =>
-                            {
-                                if (Model[0].QuestionType == QuestionType.ManyAnswersOneCorrect && Model[0].SelectedItem != null)
-                                    Model[0].Answers.Find(a => Model[0].SelectedItem.Id == a.Id).IsPicked = true;
-                                participateModel.QuestionAnswers.RemoveAt(index);
-                                participateModel.QuestionAnswers.Insert(index, Model[0]);
-                                Model.Clear();
-                                Model.Add(participateModel.QuestionAnswers[++index]);
-                                if (participateModel.QuestionAnswers[index].SelectedItem != null)
-                                    Model[0].SelectedItem = participateModel.QuestionAnswers[index].SelectedItem;
-                                cacheProvider.Set("Participate" + participateModel.GroupInTestId, participateModel);
-                            });
-                        }
+                        if(!isCachingStopped)
+                            await cacheProvider.SetAsync("Participate" + participateModel.GroupInTestId, participateModel);
+                        isCachingStopped = true;
+                        cacheTimer.Start();
                     });
-                return nextCommand;
+                return scrolledCommand;
             }
         }
 
-        public ICommand PreviousCommand
-        {
-            get
-            {
-                if (previousCommand == null)
-                    previousCommand = new RelayCommand((obj) =>
-                   {
-                       if (index > 0)
-                       {
-                           Task.Run(() =>
-                           {
-                               if (Model[0].QuestionType == QuestionType.ManyAnswersOneCorrect && Model[0].SelectedItem != null)
-                                   Model[0].Answers.Find(a => Model[0].SelectedItem.Id == a.Id).IsPicked = true;
-                               participateModel.QuestionAnswers.RemoveAt(index);
-                               participateModel.QuestionAnswers.Insert(index, Model[0]);
-                               Model.Clear();
-                               Model.Add(participateModel.QuestionAnswers[--index]);
-                               if (participateModel.QuestionAnswers[index].SelectedItem != null)
-                                   Model[0].SelectedItem = participateModel.QuestionAnswers[index].SelectedItem;
-                               cacheProvider.Set("Participate" + participateModel.GroupInTestId, participateModel);
-                           });
-                       }
-                   });
-                return previousCommand;
-            }
-        }
-
-        public ParticipatePageViewModel(ParticipateViewModel participateModel)
+        public ParticipatePageListViewModel(ParticipateViewModel participateModel)
         {
             if (Services.Service.HasInternetConnection())
             {
-                ItemTemplate = new QuestionDataTemplateSelector();
-                index = 0;
+                ItemTemplate = new QuestionDataTemplateSelectorList();
                 timer = new Timer(TimeSpan.FromSeconds(1), TimerCallback);
+                cacheTimer = new Timer(TimeSpan.FromSeconds(5), () =>
+                {
+                    isCachingStopped = false;
+                    cacheTimer.Stop();
+                    return isCachingStopped;
+                });
 
                 cacheProvider = new CacheProvider();
                 resultService = new ResultService();
@@ -148,9 +95,10 @@ namespace TestingSystem.XamarinForms.ViewModels
 
                 Total = participateModel.QuestionAnswers.Count;
                 Model = new ObservableCollection<QuestionAnswer>();
-                Model.Add(participateModel.QuestionAnswers[index]);
-                if (participateModel.QuestionAnswers[index].SelectedItem != null)
-                    Model[0].SelectedItem = participateModel.QuestionAnswers[index].SelectedItem;
+
+                foreach (var item in participateModel.QuestionAnswers)
+                    Model.Add(item);
+
                 timer.Start();
             }
         }
@@ -200,7 +148,7 @@ namespace TestingSystem.XamarinForms.ViewModels
                 await cacheProvider.RemoveAsync("Tests");
                 await cacheProvider.RemoveAsync("History");
                 await Application.Current.MainPage.Navigation.PopToRootAsync();
-                await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)));
+                await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPageList(participateModel)));
                 await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
             }
         }

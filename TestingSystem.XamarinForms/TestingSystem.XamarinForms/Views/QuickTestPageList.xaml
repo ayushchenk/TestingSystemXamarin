@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:b="clr-namespace:TestingSystem.XamarinForms.Behaviors"
+             mc:Ignorable="d"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="TestingSystem.XamarinForms.Views.QuickTestPageList">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Finish" Command="{Binding FinishCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView>
+                <StackLayout BackgroundColor="#f0f0f0" BindableLayout.ItemsSource="{Binding Model}" BindableLayout.ItemTemplateSelector="{Binding ItemTemplate}"/>
+            </ScrollView>
+            <Label HorizontalOptions="Center" Text="{Binding TimeString}" FontSize="Large" Margin="5"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

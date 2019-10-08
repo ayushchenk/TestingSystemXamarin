@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cnvrt="clr-namespace:TestingSystem.XamarinForms.Infrastructure"
+             mc:Ignorable="d"
+             x:Class="TestingSystem.XamarinForms.Controls.OneOneList">
+    <Frame CornerRadius="20" BorderColor="LightGray" Margin="0,5,0,5">
+        <StackLayout>
+            <StackLayout.Resources>
+                <cnvrt:ImagePathValueConverter x:Key="pathConverter"/>
+                <cnvrt:ImageSizeValueConverter x:Key="sizeConverter"/>
+            </StackLayout.Resources>
+            <Grid Padding="0" Margin="0" HorizontalOptions="Center" 
+              HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
+              WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0" Grid.Column="0"
+                    HeightRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
+                    WidthRequest="{Binding Question.ImagePath, Converter={StaticResource sizeConverter}}" 
+                    Source="{Binding Question.ImagePath, Converter={StaticResource pathConverter}}"
+                    HorizontalOptions="Center" 
+                    x:Name="img"
+                    Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ImageTapped" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{Binding Source={x:Reference img}, Path=IsLoading}" HeightRequest="80" WidthRequest="80"/>
+            </Grid>
+            <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
+            <Editor Placeholder="Answer" Margin="5" Text="{Binding AnswerString}"/>
+        </StackLayout>
+    </Frame>
+</ContentView>

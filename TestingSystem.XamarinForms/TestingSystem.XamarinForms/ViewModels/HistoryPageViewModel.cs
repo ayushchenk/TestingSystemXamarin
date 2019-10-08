@@ -64,7 +64,10 @@ namespace TestingSystem.XamarinForms.ViewModels
                             if (sqliteModel.Count != 0)
                             {
                                 var participateModel = Newtonsoft.Json.JsonConvert.DeserializeObject<ParticipateViewModel>(sqliteModel.First().ParticipateModelJSONString);
-                                await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)));
+                                if(Settings.UseListLayout)
+                                    await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPageList(participateModel)));
+                                else
+                                    await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new ResultPage(participateModel)));
                             }
                             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
                         }

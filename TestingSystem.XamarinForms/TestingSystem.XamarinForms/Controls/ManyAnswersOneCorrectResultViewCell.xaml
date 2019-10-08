@@ -11,26 +11,16 @@
             <ResourceDictionary>
                 <DataTemplate x:Key="correctAnswer">
                     <ViewCell>
-                        <!--<Grid >
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>-->
-                            <Frame Padding="2" Margin="7" CornerRadius="15" BackgroundColor="#a8fca7">
+                        <Frame Padding="2" Margin="7" CornerRadius="15" BackgroundColor="#a8fca7">
                                 <Label Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="CenterAndExpand"  Margin="10"/>
                             </Frame>
-                        <!--</Grid>-->
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="wrongAnswer">
                     <ViewCell>
-                        <!--<Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>-->
-                            <Frame Padding="2" Margin="7" CornerRadius="15"  BackgroundColor="#ff5e5e">
+                        <Frame Padding="2" Margin="7" CornerRadius="15"  BackgroundColor="#ff5e5e">
                                 <Label Text="{Binding AnswerString}" LineBreakMode="WordWrap" VerticalOptions="CenterAndExpand"  Margin="10"/>
                             </Frame>
-                        <!--</Grid>-->
                     </ViewCell>
                 </DataTemplate>
                 <DataTemplate x:Key="answer">
@@ -67,6 +57,6 @@
             <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{Binding Source={x:Reference img}, Path=IsLoading}" HeightRequest="80" WidthRequest="80"/>
         </Grid>
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
-        <ListView ItemsSource="{Binding Answers}" ItemTemplate="{StaticResource selector}" SelectionMode="None" MinimumHeightRequest="20" HasUnevenRows="True"/>
+        <ListView ItemsSource="{Binding Answers}" HeightRequest="{Binding HeightRequest}" ItemTemplate="{StaticResource selector}" SelectionMode="None" MinimumHeightRequest="20" HasUnevenRows="True"/>
     </StackLayout>
 </ViewCell>

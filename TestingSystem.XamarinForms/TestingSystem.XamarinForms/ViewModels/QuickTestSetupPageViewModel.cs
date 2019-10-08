@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TestingSystem.BusinessModel.Model;
 using TestingSystem.XamarinForms.ApiServices;
+using TestingSystem.XamarinForms.Infrastructure;
 using TestingSystem.XamarinForms.Models;
 using TestingSystem.XamarinForms.Views;
 using Xamarin.Forms;
@@ -80,7 +81,10 @@ namespace TestingSystem.XamarinForms.ViewModels
                         var participateModel = await testService.GetAsync(model);
 
                         await Application.Current.MainPage.Navigation.PopToRootAsync();
-                        await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new QuickTestPage(participateModel)));
+                        if(Settings.UseListLayout)
+                            await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new QuickTestPageList(participateModel)));
+                        else
+                            await Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new QuickTestPage(participateModel)));
                         await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
                     });
                 return nextCommand;

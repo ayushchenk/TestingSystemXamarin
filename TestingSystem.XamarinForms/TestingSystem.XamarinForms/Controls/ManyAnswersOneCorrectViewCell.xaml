@@ -31,7 +31,7 @@
             <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{Binding Source={x:Reference img}, Path=IsLoading}" HeightRequest="80" WidthRequest="80"/>
         </Grid>
         <Label Text="{Binding Question.QuestionString}" FontSize="Medium" HorizontalOptions="Center" Margin="5" LineBreakMode="WordWrap"/>
-        <ListView ItemsSource="{Binding Answers}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" MinimumHeightRequest="20" HasUnevenRows="True">
+        <ListView ItemsSource="{Binding Answers}" HeightRequest="{Binding HeightRequest}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" MinimumHeightRequest="20" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
